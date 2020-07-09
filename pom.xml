@@ -11,8 +11,8 @@
 	<groupId>lt.management</groupId>
 	<artifactId>oms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Order Management Systen</name>
-	<description>Order management system</description>
+	<name>Manager</name>
+	<description>Manager for building buildings</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -30,6 +30,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
