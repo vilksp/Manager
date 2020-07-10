@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lt.management.oms.dto.ProjectDto;
 import lt.management.oms.model.Project;
 import lt.management.oms.service.ProjectService;
 
@@ -33,8 +34,8 @@ public class ProjectRestControllerV1 {
 	}
 
 	@PostMapping
-	public Project createProject(@RequestBody Project project) {
-		return projectService.createProject(project);
+	public Project createProject(@RequestBody ProjectDto project) {
+		return projectService.createProject(project.build());
 	}
 
 	@DeleteMapping("/{projectId}")
@@ -43,7 +44,7 @@ public class ProjectRestControllerV1 {
 	}
 
 	@PutMapping("/{projectId}")
-	public Project updateProjectById(@PathVariable Long projectId, @RequestBody Project project) {
-		return projectService.updateProject(projectId, project);
+	public Project updateProjectById(@PathVariable Long projectId, @RequestBody ProjectDto project) {
+		return projectService.updateProject(projectId, project.build());
 	}
 }
