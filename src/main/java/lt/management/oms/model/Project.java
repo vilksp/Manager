@@ -9,11 +9,10 @@ import lt.management.oms.enums.Status;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Setter
@@ -34,26 +33,27 @@ public class Project extends BaseEntity {
     private long duration;
     private Date deadline;
 
-    // private List<Task> tasks = new ArrayList<>();
- 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<>();
+
     // For counting duration
     @CreationTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date d1;
     @UpdateTimestamp
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date d2;
 
-    
-	public Project(String name, Status status, double budget) {
-		this.name = name;
-		this.status = status;
-		this.budget = budget;
-	}
-    
-	public long getDuration() {
-				duration  = d2.getTime() - d1.getTime();
-				long diffInSeconds = TimeUnit.MILLISECONDS.toDays(duration);
-				return diffInSeconds;
-	}
+
+    public Project(String name, Status status, double budget) {
+        this.name = name;
+        this.status = status;
+        this.budget = budget;
+    }
+
+    public long getDuration() {
+        duration = d2.getTime() - d1.getTime();
+        long diffInSeconds = TimeUnit.MILLISECONDS.toDays(duration);
+        return diffInSeconds;
+    }
 }
