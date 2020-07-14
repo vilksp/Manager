@@ -1,28 +1,48 @@
 package lt.management.oms.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+/**
+ * Simple domain object that represents application user.
+ *
+ * @author Vilius & Edgaras
+ *
+ * @version 1.0
+ */
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Table(name = "users")
+@Data
 public class User extends BaseEntity {
 
+    @Column(name = "username")
+    private String username;
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
 
-    // Needs to include speciality(Another class)
+    @Column(name = "email")
+    private String email;
 
-    //Needsto include address (another class)
+    @Column(name = "password")
+    private String password;
 
-    //Needs to include project(another class)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<Role> roles;
 
+    public String getRoleName(){
+        return roles.stream().findFirst().get().getName().toLowerCase().substring(5);
+    }
 }
