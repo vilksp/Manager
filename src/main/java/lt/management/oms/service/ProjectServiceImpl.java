@@ -40,6 +40,8 @@ public class ProjectServiceImpl implements ProjectService {
 		oldProject.setName(newProject.getName());
 		oldProject.setStatus(newProject.getStatus());
 		oldProject.setBudget(newProject.getBudget());
+		oldProject.setAddress(newProject.getAddress());
+		oldProject.setDeadline(newProject.getDeadline());
 		return projectRepository.save(oldProject);
 	}
 }
