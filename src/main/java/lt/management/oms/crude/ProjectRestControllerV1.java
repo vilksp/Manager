@@ -17,7 +17,7 @@ import lt.management.oms.model.Project;
 import lt.management.oms.service.ProjectService;
 
 @RestController
-@RequestMapping("api/v1//projects")
+@RequestMapping("api/v1/projects")
 public class ProjectRestControllerV1 {
 
 	@Autowired

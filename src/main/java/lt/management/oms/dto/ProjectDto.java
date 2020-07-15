@@ -1,6 +1,6 @@
 package lt.management.oms.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.Getter;
@@ -18,10 +18,19 @@ public class ProjectDto {
 	private Status status;
 	private double budget;
 	private Address address;
-	private Date deadline;
+	private LocalDate deadline;
 
 	public Project build() {
-		return new Project(name, status, budget, address, deadline);
+		Project project = new Project();
+		project.setName(name);
+		project.setStatus(status);
+		project.setBudget(budget);
+		project.setAddress(address);
+		project.setDeadline(deadline);
+		project.setUpdateDate(LocalDate.now());
+		project.setCreateDate(LocalDate.now());
+		return project;
+
 	}
 
 }

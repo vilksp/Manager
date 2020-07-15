@@ -10,8 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "projects")
 public class Project extends BaseEntity {
 
     private String name;
@@ -33,7 +35,7 @@ public class Project extends BaseEntity {
     // private Role projectManager;
     private long duration;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date deadline;
+    private LocalDate deadline;
 
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
@@ -41,13 +43,11 @@ public class Project extends BaseEntity {
 
     // For counting duration
     @CreationTimestamp
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startDate;
+    private LocalDate startDate;
     @UpdateTimestamp
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endDate;
+    private LocalDate endDate;
 
-    public Project(String name, Status status, double budget, Address address, Date deadline) {
+    public Project(String name, Status status, double budget, Address address, LocalDate deadline) {
         this.name = name;
         this.status = status;
         this.budget = budget;
@@ -55,11 +55,11 @@ public class Project extends BaseEntity {
         this.deadline = deadline;
     }
 
-    public long getDuration() {
-        duration = endDate.getTime() - startDate.getTime();
-        long diffInSeconds = TimeUnit.MILLISECONDS.toDays(duration);
-        return diffInSeconds;
-    }
+//    public long getDuration() {
+//        duration = endDate.getTime() - startDate.getTime();
+//        long diffInSeconds = TimeUnit.MILLISECONDS.toDays(duration);
+//        return diffInSeconds;
+//    }
 
 
 }
