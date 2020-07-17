@@ -1,4 +1,4 @@
-package lt.management.oms;
+package lt.management.oms.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
