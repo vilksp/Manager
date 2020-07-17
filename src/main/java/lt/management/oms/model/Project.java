@@ -47,13 +47,13 @@ public class Project extends BaseEntity {
     @UpdateTimestamp
     private LocalDate endDate;
 
-    public Project(String name, Status status, double budget, Address address, LocalDate deadline) {
-        this.name = name;
-        this.status = status;
-        this.budget = budget;
-        this.address = address;
-        this.deadline = deadline;
-    }
+//    public Project(String name, Status status, double budget, Address address, LocalDate deadline) {
+//        this.name = name;
+//        this.status = status;
+//        this.budget = budget;
+//        this.address = address;
+//        this.deadline = deadline;
+//    }
 
 //    public long getDuration() {
 //        duration = endDate.getTime() - startDate.getTime();
