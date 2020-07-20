@@ -34,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
                 .and()
                 .csrf().disable()
-                .formLogin().disable();
+                .formLogin().disable()
+                .headers().frameOptions().disable(); // for H2-Console showing in browser
     }
 
     @Override
