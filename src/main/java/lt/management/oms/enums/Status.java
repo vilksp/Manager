@@ -4,5 +4,6 @@ public enum Status {
 
 	NEW,
 	INPROGRESS,
-	DONE
+	DONE,
+	ACTIVE
 }
