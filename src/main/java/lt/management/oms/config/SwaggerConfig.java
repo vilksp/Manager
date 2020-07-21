@@ -16,8 +16,11 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(metadata()).select()
-				.apis(RequestHandlerSelectors.basePackage("lt.management.oms")).build();
+		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(metadata())
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("lt.management.oms"))
+				.build();
 	}
 
 	public ApiInfo metadata() {
