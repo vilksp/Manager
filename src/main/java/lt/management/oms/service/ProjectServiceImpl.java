@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lt.management.oms.exceptions.ProjectNotFoundException;
 import lt.management.oms.model.Project;
 import lt.management.oms.repository.ProjectRepository;
 
@@ -21,7 +22,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public Project findById(Long id) {
-		return projectRepository.findById(id).orElseThrow(IllegalStateException::new);
+		return projectRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public Project updateProject(Long id, Project newProject) {
-		Project oldProject = projectRepository.findById(id).orElseThrow(IllegalStateException::new);
+		Project oldProject = projectRepository.findById(id).orElseThrow(ProjectNotFoundException::new);
 		oldProject.setName(newProject.getName());
 		oldProject.setStatus(newProject.getStatus());
 		oldProject.setBudget(newProject.getBudget());
