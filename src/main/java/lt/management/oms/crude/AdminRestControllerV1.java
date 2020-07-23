@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/admin/")
+@CrossOrigin(origins = { "http://localhost:3000" })
 public class AdminRestControllerV1 {
 
 
     @GetMapping("test")
-    @CrossOrigin(origins = { "http://localhost:3000" })
     public String testAdmin(){
         return "Admim OK";
     }
