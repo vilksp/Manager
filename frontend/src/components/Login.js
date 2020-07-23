@@ -11,19 +11,28 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from '../components/Copyright'
+import axios from "axios";
+
+const BASE_URL = "http://localhost:8080";
+const API = "/api/v1/admin/test";
+
 export default function SignIn() {
+
+  const axiosPost = (newElement) => {
+    axios
+      .post(BASE_URL + API, newElement)
+      .then((response) => {
+        if (response.data != null) {
+          console.log(` New recod created`);
+          console.log(response.status);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
