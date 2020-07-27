@@ -137,9 +137,7 @@
                 <configuration>
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
-            </plugin>
-
-
+        </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
