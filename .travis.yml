@@ -2,11 +2,8 @@ language: java
 jdk:
   - openjdk8
 
-script: ./mvnw clean install
+script: ./mvnw clean install -Dskip.npm
 
 
-jobs:
-  include:
-    - stage: Test
-      script: ./mvnw clean test
+
 
