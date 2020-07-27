@@ -2,11 +2,10 @@ language: java
 jdk:
   - openjdk8
 
-script: ./mvnw clean install
+script: mvn clean install -Dskip.npm=true 
 
 
-jobs:
-  include:
-    - stage: Test
-      script: ./mvnw clean test
 
+after_failure:
+  - echo FAIL
+  - rake travis:report --trace --verbose
