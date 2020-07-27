@@ -40,11 +40,11 @@ public class ProjectDto {
 
     public Project build(Project projectToDto) {
         Project project = new Project();
-        project.setName(name);
-        project.setStatus(status);
-        project.setBudget(budget);
-        project.setAddress(address);
-        project.setDeadline(deadline);
+        project.setName(projectToDto.getName());
+        project.setStatus(projectToDto.getStatus());
+        project.setBudget(projectToDto.getBudget());
+        project.setAddress(projectToDto.getAddress());
+        project.setDeadline(projectToDto.getDeadline());
         project.setUpdateDate(LocalDate.now());
         project.setCreateDate(LocalDate.now());
         return project;
