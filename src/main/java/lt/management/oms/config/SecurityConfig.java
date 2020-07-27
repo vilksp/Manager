@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Security configuration class for JWT based Spring Security application.
@@ -44,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http
-                .httpBasic()
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
@@ -60,11 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider))
-                .and()
-                .csrf().disable()
-                .formLogin().disable()
-                .headers().frameOptions().disable(); // for H2-Console showing in browser
+                .apply(new JwtConfigurer(jwtTokenProvider));
+
+        http.headers().frameOptions().disable(); // for H2-Console showing in browser
     }
 
 }
