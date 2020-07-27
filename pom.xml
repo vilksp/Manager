@@ -137,7 +137,8 @@
                 <configuration>
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
-            </plugin>
+<!--             
+</plugin>
 
 
             <plugin>
@@ -167,7 +168,8 @@
             </plugin>
 
         </plugins>
-    </build>
+    </build> 
+-->
 
 
 </project>
