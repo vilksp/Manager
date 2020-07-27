@@ -3,3 +3,9 @@ jdk:
   - openjdk8
 
 script: mvn clean install -Dskip.npm=true 
+
+
+
+after_failure:
+  - echo FAIL
+  - rake travis:report --trace --verbose
