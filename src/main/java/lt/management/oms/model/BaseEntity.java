@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lt.management.oms.enums.Status;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -29,5 +30,7 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDate updateDate;
 
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 }

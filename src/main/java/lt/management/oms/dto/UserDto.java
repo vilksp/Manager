@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lt.management.oms.model.User;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -26,7 +27,7 @@ public class UserDto {
     public User toUser(){
         User user = new User();
         user.setId(id);
-        //user.setCreated(new Date());
+        user.setCreateDate(LocalDate.now());
         user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
