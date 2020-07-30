@@ -4,9 +4,10 @@ import lt.management.oms.model.Address;
 import lt.management.oms.model.Project;
 import lt.management.oms.model.Task;
 import lt.management.oms.repository.ProjectRepository;
+import lt.management.oms.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,37 +16,36 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+public class ProjectBootstrap implements ApplicationListener {
 
     private final ProjectRepository projectRepository;
+    private final TaskRepository taskRepository;
 
-
-    public ProjectBootstrap(ProjectRepository projectRepository) {
+    @Autowired
+    public ProjectBootstrap(ProjectRepository projectRepository, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
-
+        this.taskRepository = taskRepository;
     }
 
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-
+    public void onApplicationEvent(ApplicationEvent applicationEvent) {
         projectRepository.saveAll(getProjects());
-        event.getApplicationContext();
 
     }
 
     private List<Project> getProjects() {
-        List<Project> projectList = new ArrayList<>(2);
+        List<Project> projectList = new ArrayList<>();
         List<Task> taskList = new ArrayList<>();
 
         Project fakeProjectOne = new Project();
         Task taskOne = new Task();
-        //   taskOne.setId(1l);
+        taskOne.setId(1l);
         taskOne.setTaskName("Test 1");
         taskOne.setProject(fakeProjectOne);
         taskList.add(taskOne);
 
         Task taskTwo = new Task();
-        //   taskTwo.setId(2l);
+        taskTwo.setId(2l);
         taskTwo.setTaskName("Test 2");
         taskTwo.setProject(fakeProjectOne);
         taskList.add(taskTwo);
@@ -71,7 +71,7 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
         fakeProjectTwo.setId(2l);
 
         Task taskThree = new Task();
-        //  taskThree.setId(3L);
+        taskThree.setId(3L);
         taskThree.setTaskName("Task number 3");
         taskThree.setProject(fakeProjectTwo);
 
@@ -88,9 +88,3 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
 
         projectList.add(fakeProjectTwo);
 
-
-        return projectList;
-    }
-
-
-}
