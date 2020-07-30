@@ -13,7 +13,7 @@ export default function Test() {
         axios
           .get(BASE_URL + API, {
             params: {},
-            withCredentials: true,
+            //withCredentials: true,
             auth: {
                 username: 'user',
                 password: 'user'
