@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lt.management.oms.enums.Priority;
 import lt.management.oms.enums.Status;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -36,10 +37,17 @@ public class Project extends BaseEntity {
     private long duration;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
+    private String description;
+    private Priority priority;
 
-
+    @Deprecated
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Project project;
 
     // For counting duration
     @CreationTimestamp
@@ -47,6 +55,9 @@ public class Project extends BaseEntity {
     @UpdateTimestamp
     private LocalDate endDate;
 
+    public void addProjectToList(Project project){
+        projects.add(project);
+    }
 //    public Project(String name, Status status, double budget, Address address, LocalDate deadline) {
 //        this.name = name;
 //        this.status = status;

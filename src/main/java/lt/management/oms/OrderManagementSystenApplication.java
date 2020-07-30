@@ -1,8 +1,12 @@
 package lt.management.oms;
 
+import lt.management.oms.enums.Priority;
 import lt.management.oms.enums.Status;
+import lt.management.oms.model.Address;
+import lt.management.oms.model.Project;
 import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
+import lt.management.oms.service.ProjectService;
 import lt.management.oms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,10 +24,16 @@ public class OrderManagementSystenApplication implements CommandLineRunner {
 	}
 
 	UserService service;
+	ProjectService projectService;
 
 	@Autowired
 	public void setService( @Lazy UserService service){
 		this.service = service;
+	}
+
+	@Autowired
+	public void setProjectService( @Lazy ProjectService projectService){
+		this.projectService=projectService;
 	}
 
 	@Override
@@ -58,5 +68,36 @@ public class OrderManagementSystenApplication implements CommandLineRunner {
 		user2.setEmail("some@email.com");
 		user2.setPassword("user");
 		service.register(user2,"ROLE_USER");
+
+		Address address =new Address();
+		address.setCity("Vilnius");
+		address.setHouse_number(22);
+		address.setStreet("Some street 123");
+		address.setCreateDate(LocalDate.now());
+		address.setUpdateDate(LocalDate.now());
+
+		Project task=new Project();
+		task.setCreateDate(LocalDate.now());
+		task.setUpdateDate(LocalDate.now());
+		task.setName("Some task");
+		task.setStatus(Status.ACTIVE);
+		task.setPriority(Priority.HIGH);
+
+		Project project=new Project();
+		project.setName("Apartment 22001");
+		project.setPriority(Priority.LOW);
+		project.setCreateDate(LocalDate.now());
+		project.setUpdateDate(LocalDate.now());
+		project.setBudget(100000);
+		project.setDeadline(LocalDate.of(2020,12,01));
+		project.setStatus(Status.ACTIVE);
+
+		address.setProject(project);
+		task.setProject(project);
+		project.setAddress(address);
+		project.addProjectToList(task);
+
+		projectService.createProject(project);
+
 	}
 }
