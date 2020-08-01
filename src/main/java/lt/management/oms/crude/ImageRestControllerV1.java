@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.model.Image;
-import lt.management.oms.model.View;
 import lt.management.oms.service.ImageService;
 
 @RestController
@@ -32,7 +29,6 @@ public class ImageRestControllerV1 {
 	private ImageService imageService;
 
 	// Returns all the files
-	@JsonView(View.FileInfo.class)
 	@GetMapping("/files")
 	public List<Image> getListOfFiles() {
 		return imageService.getAll();

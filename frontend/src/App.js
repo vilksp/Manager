@@ -8,7 +8,9 @@ import {
 
 import Login from './components/Login'
 import Test from './components/Test'
+import ImageDropZone from './components/ImageDropZone'
 import Dashboard from './components/dashboard/Dashboard';
+import GetFiles from './components/GetFiles'
 export default function App() {
   return (
     <Router>
@@ -27,6 +29,9 @@ export default function App() {
             <li>
               <Link to="/test">Test</Link>
             </li>
+            <li>
+              <Link to="/image">Image Dropzone</Link>
+            </li>
           </ul>
         </nav>
 
@@ -39,6 +44,10 @@ export default function App() {
           </Route>
           <Route path="/test">
             <Test />
+          </Route>
+          <Route path="/image">
+            <ImageDropZone />
+            <GetFiles />
           </Route>
           <Route path="/">
             <Login />
