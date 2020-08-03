@@ -2,10 +2,9 @@ package lt.management.oms.service;
 
 import lt.management.oms.model.Image;
 import lt.management.oms.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.http.entity.ContentType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.http.entity.ContentType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,8 +13,12 @@ import java.util.Optional;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+
+    private final ImageRepository imageRepository;
+
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Override
     public void saveFile(MultipartFile file) throws Exception {
@@ -51,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
         if (!Arrays.asList(ContentType.IMAGE_JPEG.getMimeType(),
                 ContentType.IMAGE_PNG.getMimeType(),
                 ContentType.IMAGE_GIF.getMimeType()).contains(file.getContentType())) {
-            throw new IllegalStateException("File must be an image type [" + file.getContentType() + "]" );
+            throw new IllegalStateException("File must be an image type [" + file.getContentType() + "]");
         }
     }
 }
