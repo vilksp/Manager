@@ -4,8 +4,6 @@ import lt.management.oms.model.Address;
 import lt.management.oms.model.Project;
 import lt.management.oms.model.Task;
 import lt.management.oms.repository.ProjectRepository;
-import lt.management.oms.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -19,12 +17,11 @@ import java.util.List;
 public class ProjectBootstrap implements ApplicationListener {
 
     private final ProjectRepository projectRepository;
-    private final TaskRepository taskRepository;
 
-    @Autowired
-    public ProjectBootstrap(ProjectRepository projectRepository, TaskRepository taskRepository) {
+
+    public ProjectBootstrap(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
-        this.taskRepository = taskRepository;
+
     }
 
     @Override
@@ -39,26 +36,26 @@ public class ProjectBootstrap implements ApplicationListener {
 
         Project fakeProjectOne = new Project();
         Task taskOne = new Task();
-        taskOne.setId(1l);
+        taskOne.setId(1L);
         taskOne.setTaskName("Test 1");
         taskOne.setProject(fakeProjectOne);
         taskList.add(taskOne);
 
         Task taskTwo = new Task();
-        taskTwo.setId(2l);
+        taskTwo.setId(2L);
         taskTwo.setTaskName("Test 2");
         taskTwo.setProject(fakeProjectOne);
         taskList.add(taskTwo);
 
 
-        Address fakeAdressOne = new Address();
-        fakeAdressOne.setId(1L);
-        fakeAdressOne.setCity("Test City");
-        fakeAdressOne.setHouse_number(15);
-        fakeAdressOne.setProject(fakeProjectOne);
+        Address fakeAddressOne = new Address();
+        fakeAddressOne.setId(1L);
+        fakeAddressOne.setCity("Test City");
+        fakeAddressOne.setHouse_number(15);
+        fakeAddressOne.setProject(fakeProjectOne);
 
         fakeProjectOne.setId(1L);
-        fakeProjectOne.setAddress(fakeAdressOne);
+        fakeProjectOne.setAddress(fakeAddressOne);
         fakeProjectOne.setBudget(15000);
         fakeProjectOne.setDeadline(LocalDate.now().plusDays(30));
         fakeProjectOne.setStartDate(LocalDate.now());
@@ -68,7 +65,7 @@ public class ProjectBootstrap implements ApplicationListener {
 
         Project fakeProjectTwo = new Project();
 
-        fakeProjectTwo.setId(2l);
+        fakeProjectTwo.setId(2L);
 
         Task taskThree = new Task();
         taskThree.setId(3L);
@@ -87,4 +84,6 @@ public class ProjectBootstrap implements ApplicationListener {
         fakeProjectTwo.setTasks(Collections.singletonList(taskThree));
 
         projectList.add(fakeProjectTwo);
-
+        return projectList;
+    }
+}

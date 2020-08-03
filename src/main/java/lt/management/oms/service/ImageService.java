@@ -9,10 +9,10 @@ import lt.management.oms.model.Image;
 
 public interface ImageService {
 
-	public Image saveFile(MultipartFile file);
-	
-	public Optional<Image> getFileById(Long imageId);
-	
-	public List<Image> getAll();
-	
+    void saveFile(MultipartFile file) throws Exception;
+
+    Optional<Image> getFileById(Long imageId);
+
+    List<Image> getAll();
+
 }
