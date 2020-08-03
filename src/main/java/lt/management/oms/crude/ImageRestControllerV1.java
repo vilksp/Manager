@@ -36,12 +36,18 @@ public class ImageRestControllerV1 {
 
 	// Uploads multiple files
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity uploadFile(@RequestParam("files") MultipartFile[] files) {
+	public ResponseEntity uploadFile(@RequestParam("files") MultipartFile[] files){
 		for (int i = 0; i < files.length; i++) {
 			log.info(String.format("File name '%s' uploaded successfully.", files[i].getOriginalFilename()));
 		}
 
-		Arrays.asList(files).stream().forEach(file -> imageService.saveFile(file));
+		Arrays.asList(files).stream().forEach(file -> {
+			try {
+				imageService.saveFile(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 		return ResponseEntity.ok().build();
 	}
 
