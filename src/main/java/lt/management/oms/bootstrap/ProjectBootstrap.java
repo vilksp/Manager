@@ -5,6 +5,7 @@ import lt.management.oms.model.Project;
 import lt.management.oms.model.Task;
 import lt.management.oms.repository.ProjectRepository;
 import lt.management.oms.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class ProjectBootstrap implements ApplicationListener {
     private final ProjectRepository projectRepository;
     private final TaskRepository taskRepository;
 
-
+    @Autowired
     public ProjectBootstrap(ProjectRepository projectRepository, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
         this.taskRepository = taskRepository;
