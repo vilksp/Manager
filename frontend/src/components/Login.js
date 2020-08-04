@@ -17,7 +17,6 @@ import axios from "axios";
 import Auth from "../components/auth/Authentication";
 
 const BASE_URL = "http://localhost:8080";
-const API = "/api/v1/admin/test";
 
 export default function SignIn() {
 
@@ -36,17 +35,36 @@ export default function SignIn() {
            setToken(res.data.token)
            setToken(res.data.token)
            console.log(`Roles: ${res.data.roles}`)
-           console.log(`Token ${res.data.token}`)
+           console.log(`Token:  ${res.data.token}`)
            
            Auth.registerJwtTT(res.data.token)
            Auth.registerUserRole(res.data.roles)
            // push to main page
-
+           loginWithToken()
            
        }).catch(() => {
            // check if login failed
        })
   }
+
+
+  // Cia kazkodel meta 403
+  const loginWithToken = () =>  
+  axios
+       .get(BASE_URL + "/api/v1/admin/test",
+           { headers: { Authorization: token } }
+       ).then((response) => {
+        if (response.data != null) 
+        {
+          console.log(`Logged in with token`);
+          console.log(response.status);
+          console.log(response.data);
+        }
+      })
+      .catch((error) => 
+      {
+        console.log(error);
+      });
 
 
 
