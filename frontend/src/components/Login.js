@@ -85,10 +85,10 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="User name"
+            name="username"
+            autoComplete="username"
             onChange={(event) => {setMail(event.target.value)}}
             autoFocus
           />
