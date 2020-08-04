@@ -14,10 +14,34 @@ import Container from "@material-ui/core/Container";
 import Copyright from '../components/Copyright'
 import axios from "axios";
 
+import Auth from "../components/auth/Authentication";
+
 const BASE_URL = "http://localhost:8080";
 const API = "/api/v1/admin/test";
 
 export default function SignIn() {
+  
+  
+  //loginClicked = (event) => {
+  //  event.preventDefault();
+  //  Auth
+  //      .executeJwtAuthenticationService(this.state.name, this.state.password)
+  //      .then((res) => {
+  //          console.log("login--"+res.data.roles)
+  //          Auth.registerJwtTT(res.data.token)
+  //          Auth.registerUserRole(res.data.roles)
+  //          // push to main page
+  //          
+  //      }).catch(() => {
+  //          // check if login failed
+  //      })
+  //}
+
+  // axios example 
+  //  axios
+  //      .get(`http://localhost:8080/api/task/waiting/${this.props.id}`,
+  //          { headers: { Authorization: sessionStorage.getItem('token') } }
+  //      )
 
   const axiosPost = (newElement) => {
     axios
