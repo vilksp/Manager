@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -20,42 +20,36 @@ const BASE_URL = "http://localhost:8080";
 const API = "/api/v1/admin/test";
 
 export default function SignIn() {
+
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
+  const [roles, setRoles] = useState('');
+
   
   
-  //loginClicked = (event) => {
-  //  event.preventDefault();
-  //  Auth
-  //      .executeJwtAuthenticationService(this.state.name, this.state.password)
-  //      .then((res) => {
-  //          console.log("login--"+res.data.roles)
-  //          Auth.registerJwtTT(res.data.token)
-  //          Auth.registerUserRole(res.data.roles)
-  //          // push to main page
-  //          
-  //      }).catch(() => {
-  //          // check if login failed
-  //      })
-  //}
+  const loginClicked = (event) => {
+   event.preventDefault();
+   Auth
+       .executeJwtAuthenticationService(mail, password)
+       .then((res) => {
+           setToken(res.data.token)
+           setToken(res.data.token)
+           console.log(`Roles: ${res.data.roles}`)
+           console.log(`Token ${res.data.token}`)
+           
+           Auth.registerJwtTT(res.data.token)
+           Auth.registerUserRole(res.data.roles)
+           // push to main page
 
-  // axios example 
-  //  axios
-  //      .get(`http://localhost:8080/api/task/waiting/${this.props.id}`,
-  //          { headers: { Authorization: sessionStorage.getItem('token') } }
-  //      )
+           
+       }).catch(() => {
+           // check if login failed
+       })
+  }
 
-  const axiosPost = (newElement) => {
-    axios
-      .post(BASE_URL + API, newElement)
-      .then((response) => {
-        if (response.data != null) {
-          console.log(` New recod created`);
-          console.log(response.status);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
+
 
   const classes = useStyles();
   return (
@@ -77,6 +71,7 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={(event) => {setMail(event.target.value)}}
             autoFocus
           />
           <TextField
@@ -89,6 +84,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(event) => {setPassword(event.target.value)}}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -100,6 +96,8 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            // onClick={() => console.log(`password ${password} mail ${mail}`)}
+            onClick={ (event) => loginClicked(event) }
           >
             Sign In
           </Button>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:3000'
+const API_URL = 'http://localhost:8080'
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 export const USER_ROLE = 'role'
@@ -9,7 +9,6 @@ export const TOKEN_NAME = 'token'
 class Authorization {
 
     executeJwtAuthenticationService(username, password) {
-        console.log(username);
         return axios.post(`${API_URL}/api/v1/auth/login`, {
             username,
             password
