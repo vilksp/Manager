@@ -1,16 +1,15 @@
 package lt.management.oms.dto;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lt.management.oms.enums.Status;
 import lt.management.oms.model.Address;
 import lt.management.oms.model.Project;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Setter

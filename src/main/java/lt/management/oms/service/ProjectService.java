@@ -1,8 +1,8 @@
 package lt.management.oms.service;
 
-import java.util.List;
-
 import lt.management.oms.model.Project;
+
+import java.util.List;
 
 public interface ProjectService {
 

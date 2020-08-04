@@ -1,13 +1,13 @@
 package lt.management.oms.dto;
 
-import java.time.LocalDate;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lt.management.oms.enums.Priority;
 import lt.management.oms.enums.Status;
 import lt.management.oms.model.Task;
+
+import java.time.LocalDate;
 
 @Data
 @Setter

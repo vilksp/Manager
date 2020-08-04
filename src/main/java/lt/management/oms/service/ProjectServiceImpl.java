@@ -1,14 +1,13 @@
 package lt.management.oms.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.exceptions.ProjectNotFoundException;
 import lt.management.oms.model.Project;
 import lt.management.oms.repository.ProjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j

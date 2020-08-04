@@ -5,7 +5,6 @@ import lombok.Data;
 import lt.management.oms.model.User;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * DTO class for user requests by ROLE_USER

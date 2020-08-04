@@ -1,13 +1,12 @@
 package lt.management.oms.crude;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import lt.management.oms.dto.ProjectDto;
 import lt.management.oms.model.Project;
 import lt.management.oms.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/projects")
