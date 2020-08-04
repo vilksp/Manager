@@ -11,14 +11,9 @@ export default function Test() {
     const [data, setData] = useState([]);
     useEffect(() => {
         axios
-          .get(BASE_URL + API, {
-            params: {},
-            //withCredentials: true,
-            auth: {
-                username: 'user',
-                password: 'user'
-            }
-        })
+          .get(BASE_URL + API, 
+            { headers: { Authorization: sessionStorage.getItem('token') } }
+        )
           .then((response) => {
             console.log(response.data);
             console.log(response.status);
