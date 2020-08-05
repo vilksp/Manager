@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.model.Image;
 import lt.management.oms.service.ImageService;
 
-@RestController
+@RestController()
 @Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 public class ImageRestControllerV1 {
@@ -57,5 +58,11 @@ public class ImageRestControllerV1 {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getImageType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getImageName() + "\"")
 				.body(new ByteArrayResource(image.getData()));
+	}
+	
+	@DeleteMapping("files/{fileId}")
+	public void deleteImage(@PathVariable Long fileId) {
+		imageService.delete(fileId);
+		log.info(String.format("File by id '%s' deleted successfully.", fileId));
 	}
 }
