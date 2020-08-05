@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Container from "@material-ui/core/Container";
+import Paper from '@material-ui/core/Paper';
 import axios from "axios";
 
 
@@ -9,10 +10,14 @@ const API = "/api/v1/user/test";
 
 export default function Test() {
     const [data, setData] = useState([]);
+    const [token] = useState(sessionStorage.getItem('token') );
+    const [role] = useState(sessionStorage.getItem('role') );
+
+
     useEffect(() => {
         axios
           .get(BASE_URL + API, 
-            { headers: { Authorization: sessionStorage.getItem('token') } }
+            { headers: { Authorization: token } }
         )
           .then((response) => {
             console.log(response.data);
@@ -29,7 +34,22 @@ export default function Test() {
 
     return (
         <Container component="main" maxWidth="xs">
-        Response code: {data.status}
+        <Paper variant="outlined" square >
+        <Container>          <p>
+             Response code: {data.status}
+          </p>
+          <p>
+            Response data: {data.data}         
+          </p>
+          <p>
+            Token: {token}         
+          </p>
+          <p>
+            Role: {role}         
+          </p>
+          </Container>
+
+        </Paper>
         </Container>
     )
 }
