@@ -1,16 +1,12 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Login from './components/Login'
-import Test from './components/Test'
-import ImageDropZone from './components/ImageDropZone'
-import Dashboard from './components/dashboard/Dashboard';
-import GetFiles from './components/GetFiles'
+import Login from "./components/Login";
+import Test from "./components/Test";
+import ImageDropZone from "./components/ImageDropZone";
+import Dashboard from "./components/dashboard/Dashboard";
+import GetFiles from "./components/GetFiles";
+import DeleteImage from "./components/DeleteImage";
 export default function App() {
   return (
     <Router>
@@ -49,6 +45,7 @@ export default function App() {
             <ImageDropZone />
             <GetFiles />
           </Route>
+          <Route path="/delete/:id" exact component={DeleteImage}></Route>
           <Route path="/">
             <Login />
           </Route>
@@ -57,8 +54,6 @@ export default function App() {
     </Router>
   );
 }
-
-
 
 function About() {
   return <h2>About</h2>;
