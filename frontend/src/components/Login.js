@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Copyright from "../components/Copyright";
-import Test from '../components/Test'
+import Test from "../components/Test";
 import axios from "axios";
 
 import Auth from "../components/auth/Authentication";
@@ -43,11 +43,10 @@ export default function SignIn() {
       });
   };
 
-
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
-      <Test/>
+      <Test />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
