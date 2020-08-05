@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Copyright from "../components/Copyright";
+import Test from '../components/Test'
 import axios from "axios";
 
 import Auth from "../components/auth/Authentication";
@@ -29,40 +30,24 @@ export default function SignIn() {
     Auth.executeJwtAuthenticationService(mail, password)
       .then((res) => {
         setToken(res.data.token);
-        setToken(res.data.token);
+        setRoles(res.data.token);
         console.log(`Roles: ${res.data.roles}`);
         console.log(`Token:  ${res.data.token}`);
 
         Auth.registerJwtTT(res.data.token);
         Auth.registerUserRole(res.data.roles);
         // push to main page
-        loginWithToken();
       })
       .catch(() => {
         // check if login failed
       });
   };
 
-  // Cia kazkodel meta 403
-  const loginWithToken = () =>
-    axios
-      .get(BASE_URL + "/api/v1/admin/test", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.data != null) {
-          console.log(`Logged in with token`);
-          console.log(response.status);
-          console.log(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
+      <Test/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -129,6 +114,7 @@ export default function SignIn() {
         </form>
       </div>
       <Box mt={8}>
+        <div> {} </div>
         <Copyright />
       </Box>
     </Container>
