@@ -38,8 +38,8 @@ export default function SignIn() {
         Auth.registerUserRole(res.data.roles);
         // push to main page
       })
-      .catch(() => {
-        // check if login failed
+      .catch((error) => {
+        console.log(error);
       });
   };
 
