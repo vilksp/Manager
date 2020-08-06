@@ -3,14 +3,23 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const GetFiles = () => {
   // saving value to state
   const [images, setImages] = useState([]);
+  const [token] = useState(sessionStorage.getItem("token"));
+  const [role] = useState(sessionStorage.getItem("role"));
 
   useEffect(() => {
-    axios.get("http://localhost:8080/files").then((result) => {
-      setImages(result.data);
-    });
+    axios.get(BASE_URL + "/files",
+      { headers: { Authorization: token } })
+      .then((result) => {
+        console.log(`Token here:  ${token}`)
+        console.log(`result here:  ${result}`)
+        console.log(result)
+        setImages(result.data);
+      });
   }, []);
 
   return (
@@ -29,10 +38,10 @@ const GetFiles = () => {
             <td className="text-center">{image.id}</td>
 
             <td className="text-center">
-              <a href={`http://localhost:8080/downloadFile/` + image.id}>
+              <a href={BASE_URL + `/downloadFile/` + image.id}>
                 <img
                   style={{ width: "100px" }}
-                  src={`http://localhost:8080/downloadFile/` + image.id}
+                  src={BASE_URL + `/downloadFile/` + image.id}
                 />
               </a>
             </td>
@@ -40,10 +49,10 @@ const GetFiles = () => {
               {image.imageType === "application/pdf" ? (
                 <span>{image.imageName}</span>
               ) : (
-                <a href={`http://localhost:8080/downloadFile/` + image.id}>
-                  {image.imageName}
-                </a>
-              )}
+                  <a href={BASE_URL + `/downloadFile/` + image.id}>
+                    {image.imageName}
+                  </a>
+                )}
             </td>
             <td>
               <Link
