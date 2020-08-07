@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 import Copyright from "../components/Copyright";
 import Test from "../components/Test";
 import axios from "axios";
-
+import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Auth from "../components/auth/Authentication";
 
 const BASE_URL = "http://localhost:8080";
@@ -47,75 +47,29 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <Test />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="User name"
-            name="username"
-            autoComplete="username"
-            onChange={(event) => {
-              setMail(event.target.value);
-            }}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            // onClick={() => console.log(`password ${password} mail ${mail}`)}
-            onClick={(event) => loginClicked(event)}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <div> {} </div>
-        <Copyright />
-      </Box>
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+    </Form.Text>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+        <Form.Group controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={(event) => loginClicked(event)}>
+          Submit
+  </Button>
+      </Form>
+
+
+ 
     </Container>
   );
 }
