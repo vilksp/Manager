@@ -4,6 +4,8 @@ import { FaCloudUploadAlt, FaPhotoVideo } from "react-icons/fa";
 
 import "../App.css";
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const ImageDropZone = () => {
   const fileInputRef = useRef();
   const modalImageRef = useRef();
@@ -15,6 +17,9 @@ const ImageDropZone = () => {
   const [validFiles, setValidFiles] = useState([]);
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [data, setData] = useState([]);
+  const [token] = useState(sessionStorage.getItem("token"));
+  const [role] = useState(sessionStorage.getItem("role"));
 
   useEffect(() => {
     let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -145,9 +150,10 @@ const ImageDropZone = () => {
       const formData = new FormData();
       formData.append("files", validFiles[i]);
       formData.append("key", "");
-
+      
+//axios here
       axios
-        .post("http://localhost:8080/upload", formData, {
+        .post(BASE_URL+"/upload", formData,{ headers: { Authorization: token } }, {
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.floor(
               (progressEvent.loaded / progressEvent.total) * 100

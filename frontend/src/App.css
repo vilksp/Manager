@@ -307,4 +307,23 @@
   color: red;
 }
 
+.delete-modal {
+  display: flex;
+  margin-top: 200px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.delete-modal .overlay {
+  width: 100%;
+  height: 100vh;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.66);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /* This is the end style for image dropzone */

@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8080";
-const API = "/api/v1/user/test";
+const API = "/api/v1/test";
 
 export default function Test() {
   const [data, setData] = useState([]);

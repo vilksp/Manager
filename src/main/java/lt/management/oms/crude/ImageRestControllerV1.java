@@ -14,9 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@RestController()
 @Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/v1")
 public class ImageRestControllerV1 {
 
 	@Autowired
@@ -51,5 +52,11 @@ public class ImageRestControllerV1 {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getImageType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getImageName() + "\"")
 				.body(new ByteArrayResource(image.getData()));
+	}
+	
+	@DeleteMapping("files/{fileId}")
+	public void deleteImage(@PathVariable Long fileId) {
+		imageService.delete(fileId);
+		log.info(String.format("File by id '%s' deleted successfully.", fileId));
 	}
 }

@@ -57,4 +57,9 @@ public class ImageServiceImpl implements ImageService {
             throw new IllegalStateException("File must be an image type [" + file.getContentType() + "]");
         }
     }
+
+	@Override
+	public void delete(Long imageId) {
+		imageRepository.deleteById(imageId);
+	}
 }
