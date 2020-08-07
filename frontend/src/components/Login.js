@@ -16,11 +16,13 @@ export default function SignIn() {
   const [roles, setRoles] = useState("");
 
   const loginClicked = (event) => {
+    console.log(`password ${password} mail ${mail}`)
     event.preventDefault();
     Auth.executeJwtAuthenticationService(mail, password)
       .then((res) => {
         setToken(res.data.token);
         setRoles(res.data.token);
+
         console.log(`Roles: ${res.data.roles}`);
         console.log(`Token:  ${res.data.token}`);
 
@@ -38,9 +40,13 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
       <Test />
       <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+        <Form.Group >
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="text" placeholder="Enter username"
+            onChange={(event) => {
+              setMail(event.target.value);
+            }}
+          />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
     </Form.Text>
@@ -48,18 +54,21 @@ export default function SignIn() {
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control type="password" placeholder="Password"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={(event) => loginClicked(event)}>
-          Submit
-  </Button>
+        <Button as="input" type="submit" value="Submit" 
+         onClick={(event) => loginClicked(event)} />
       </Form>
 
 
- 
+
     </Container>
   );
 }
