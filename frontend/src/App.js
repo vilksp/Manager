@@ -1,35 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import Login from "./components/Login";
 import Test from "./components/Test";
 import ImageDropZone from "./components/ImageDropZone";
 import Dashboard from "./components/dashboard/Dashboard";
 import GetFiles from "./components/GetFiles";
 import DeleteImage from "./components/DeleteImage";
+import NavigationBar from "./components/NavigationBar"
+
 export default function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/test">Test</Link>
-            </li>
-            <li>
-              <Link to="/image">Image Dropzone</Link>
-            </li>
-          </ul>
-        </nav>
+
+     <NavigationBar/>
 
         <Switch>
           <Route path="/about">
@@ -50,7 +33,7 @@ export default function App() {
             <Login />
           </Route>
         </Switch>
-      </div>
+      
     </Router>
   );
 }
