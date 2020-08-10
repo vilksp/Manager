@@ -11,45 +11,27 @@ export default function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/test">Test</Link>
-            </li>
-            <li>
-              <Link to="/image">Image Dropzone</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/test">
-            <Test />
-          </Route>
-          <Route path="/image">
-            <ImageDropZone />
-            <GetFiles />
-          </Route>
-          <Route path="/delete/:id" exact component={DeleteImage}></Route>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
+        <Dashboard>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route path="/test">
+              <Test />
+            </Route>
+            <Route path="/image">
+              <ImageDropZone />
+              <GetFiles />
+            </Route>
+            <Route path="/delete/:id" exact component={DeleteImage}></Route>
+            <Route path="/">
+              <Login />
+            </Route>
+          </Switch>
+        </Dashboard>
       </div>
     </Router>
   );
