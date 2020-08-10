@@ -9,20 +9,26 @@ const DeleteImage = (props) => {
   const [token] = useState(sessionStorage.getItem("token"));
   const [role] = useState(sessionStorage.getItem("role"));
 
+  const BASE_URL = "http://localhost:8080/api/v1";
+
   useEffect(() => {
-    axios.get(`http://localhost:8080/files/${id}`,
-    { headers: { Authorization: token } })
-    .then((result) => {
-      setImage(result.data);
-    });
+    axios
+      .get(BASE_URL + `/files/${id}`, {
+        headers: { Authorization: token },
+      })
+      .then((result) => {
+        setImage(result.data);
+      });
   }, [id]);
 
   const handleRemoveImage = () => {
-    axios.delete(`http://localhost:8080/files/${id}`,
-    { headers: { Authorization: token } })
-    .then((result) => {
-      props.history.push("/image");
-    });
+    axios
+      .delete(BASE_URL + `/files/${id}`, {
+        headers: { Authorization: token },
+      })
+      .then((result) => {
+        props.history.push("/image");
+      });
   };
 
   return (

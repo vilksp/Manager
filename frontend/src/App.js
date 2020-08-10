@@ -34,8 +34,8 @@ export default function App() {
           </Route>
         </Switch>
       
-    </Router>
-  );
+</Router>
+  )
 }
 
 function About() {
