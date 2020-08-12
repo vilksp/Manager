@@ -2,7 +2,6 @@ import React, { useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Copyright from "../components/Copyright";
-import Test from "../components/Test";
 import axios from "axios";
 import { Button, Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Auth from "../components/auth/Authentication";
@@ -38,7 +37,6 @@ export default function SignIn() {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
-      <Test />
       <Form>
         <Form.Group >
           <Form.Label>Username</Form.Label>
