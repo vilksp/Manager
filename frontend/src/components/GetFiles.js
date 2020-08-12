@@ -67,25 +67,45 @@ const GetFiles = () => {
   //     .catch((e) => console.log(e));
   // };
 
-  const download = (e) => {
-    console.log(e.target.href);
-    fetch(e.target.href, {
-      method: "GET",
-      headers: { Authorization: token },
-      responseType: "arraybuffer",
+
+  const imageDisplay = (url) => {
+    console.log(url);
+    axios({
+      url: url,
+      method: 'GET',
+      responseType: 'arraybuffer',
+      headers: { Authorization: token}
     })
       .then((response) => {
-        response.arrayBuffer().then(function (buffer) {
-          const url = window.URL.createObjectURL(new Blob([buffer]));
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute(
-            "download",
-            "image.jpeg" || "image.png" || "image.jpg"
-          ); //or any other extension
-          document.body.appendChild(link);
-          link.click();
-        });
+        let blob = new Blob(
+          [response.data], 
+          { type: response.headers['content-type'] }
+        )
+        let image = URL.createObjectURL(blob)
+        return image
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const download = (e, url) => {
+    console.log(url);
+    axios({
+      url: url,
+      method: 'GET',
+      responseType: 'blob', // important
+      headers: { Authorization: token}
+    })
+      .then((response) => {
+        console.log("Geting picture data")
+        const url = window.URL.createObjectURL(new Blob([response.data], {type: response.data.type}  ))
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', response.data.type);
+        document.body.appendChild(link);
+        link.click();
       })
       .catch((err) => {
         console.log(err);
@@ -111,7 +131,7 @@ const GetFiles = () => {
               <a href={BASE_URL + `/downloadFile/` + image.id}>
                 <img
                   style={{ width: "100px" }}
-                  src={BASE_URL + `/downloadFile/` + image.id}
+                  src={imageDisplay(BASE_URL + `/downloadFile/` + image.id)}
                 />
               </a>
             </td>
@@ -120,9 +140,8 @@ const GetFiles = () => {
                 <span>{image.imageName}</span>
               ) : (
                 <a
-                  href={`${BASE_URL}/downloadFile/${image.id}`}
-                  download
-                  onClick={(e) => download(e)}
+                href="#"
+                  onClick={(e) => download(e, `${BASE_URL}/downloadFile/${image.id}`)}
                 >
                   {image.imageName}
                 </a>
