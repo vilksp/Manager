@@ -93,6 +93,7 @@
 
     <build>
         <plugins>
+         <!--- Script for automatically building and running project
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -143,16 +144,13 @@
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
         </plugin>
-            <!--- Script for automatically building and running project
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
-
                     <execution>
                         <id>Copy react to target folder</id>
-
                         <phase>process-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
