@@ -81,6 +81,15 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
         user2.setEmail("some@email.com");
         user2.setPassword("user");
         service.register(user2, "ROLE_USER");
+        
+        User user3 = new User();
+        user3.setCreateDate(LocalDate.now());
+        user3.setUsername("jonny");
+        user3.setFirstName("Jon");
+        user3.setLastName("Doe");
+        user3.setEmail("jondoe@email.com");
+        user3.setPassword("jonny");
+        service.register(user3, "ROLE_USER");
 
         Address address = new Address();
         address.setCity("Vilnius");

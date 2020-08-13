@@ -7,6 +7,7 @@ import ImageDropZone from "./components/ImageDropZone";
 import Dashboard from "./components/dashboard/Dashboard";
 import GetFiles from "./components/GetFiles";
 import DeleteImage from "./components/DeleteImage";
+import UserProfile from "./components/UserProfile";
 export default function App() {
   return (
     <Router>
@@ -16,8 +17,8 @@ export default function App() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/users">
-              <Users />
+            <Route path="/profile">
+              <UserProfile />
             </Route>
             <Route path="/test">
               <Test />
