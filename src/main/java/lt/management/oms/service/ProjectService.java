@@ -1,12 +1,14 @@
 package lt.management.oms.service;
 
-import java.util.List;
-
 import lt.management.oms.model.Project;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface ProjectService {
 
-	List<Project> getAll();
+	Page<Project> getAll(Pageable page);
 
 	Project findById(Long id);
 

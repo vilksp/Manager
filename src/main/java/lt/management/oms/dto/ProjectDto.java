@@ -1,16 +1,16 @@
 package lt.management.oms.dto;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lt.management.oms.enums.Status;
 import lt.management.oms.model.Address;
 import lt.management.oms.model.Project;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Setter
@@ -52,9 +52,12 @@ public class ProjectDto {
 
     }
 
-    public List<Project> entityToDto(List<Project> projectList) {
 
-        return projectList.stream().map(x -> build(x)).collect(Collectors.toList());
+    public List<Project> entityToDto(Page<Project> projectList) {
+        List<Project> list = new ArrayList();
+        projectList.stream().map(x -> build(x)).forEach(x -> list.add(x));
+        return list;
     }
+
 
 }

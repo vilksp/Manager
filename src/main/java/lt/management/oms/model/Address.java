@@ -21,9 +21,8 @@ public class Address extends BaseEntity {
     private Integer street_number;
     private Integer house_number;
 
-
-    @OneToOne(mappedBy = "address")
     @JsonIgnore
+    @OneToOne(mappedBy = "address")
     private Project project;
 
 }

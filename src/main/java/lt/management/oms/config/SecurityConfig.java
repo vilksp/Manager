@@ -21,7 +21,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final JwtTokenProvider jwtTokenProvider;
 
     private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
@@ -66,5 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().frameOptions().disable(); // for H2-Console showing in browser
     }
+
 
 }

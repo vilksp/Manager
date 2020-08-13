@@ -1,7 +1,8 @@
-package lt.management.oms.service;
+package lt.management.oms.service.impl;
 
 import lt.management.oms.model.Image;
 import lt.management.oms.repository.ImageRepository;
+import lt.management.oms.service.ImageService;
 import org.apache.http.entity.ContentType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

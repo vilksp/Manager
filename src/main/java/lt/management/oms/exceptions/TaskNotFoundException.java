@@ -1,13 +1,13 @@
 package lt.management.oms.exceptions;
 
-public class TaskNotFoundExeption extends RuntimeException {
+public class TaskNotFoundException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public TaskNotFoundExeption() {
+	public TaskNotFoundException() {
 		
 	}
 	
