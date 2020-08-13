@@ -143,6 +143,7 @@
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
         </plugin>
+            <!--- Script for automatically building and running project
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -168,6 +169,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
         </plugins>
     </build>
