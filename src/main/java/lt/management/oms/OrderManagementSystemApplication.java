@@ -106,9 +106,9 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
         project.setStatus(Status.ACTIVE);
 
         address.setProject(project);
-        task.setProject(project);
+     //   task.setProject(project);
         project.setAddress(address);
-        project.addProjectToList(task);
+      //  project.addProjectToList(task);
 
         projectService.createProject(project);
 

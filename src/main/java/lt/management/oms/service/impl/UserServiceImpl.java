@@ -1,4 +1,4 @@
-package lt.management.oms.service;
+package lt.management.oms.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.enums.Status;
@@ -6,7 +6,7 @@ import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
 import lt.management.oms.repository.RoleRepository;
 import lt.management.oms.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lt.management.oms.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
+
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;

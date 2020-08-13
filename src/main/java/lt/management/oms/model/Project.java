@@ -1,6 +1,7 @@
 package lt.management.oms.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lt.management.oms.enums.Priority;
 import lt.management.oms.enums.Status;
@@ -23,27 +24,31 @@ public class Project extends BaseEntity {
 
     private String name;
     @Enumerated(EnumType.STRING)
+
     private Status status;
     // private Client client;
     private double budget;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+
     private Address address;
     // private Role projectManager;
     private long duration;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private String description;
+
     private Priority priority;
 
-    @Deprecated
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Task> tasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Project project;
+    @JsonIgnore
+    private List<Task> tasks = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+//    private List<Project> projects = new ArrayList<>();
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Project project;
 
     // For counting duration
     @CreationTimestamp
@@ -51,9 +56,9 @@ public class Project extends BaseEntity {
     @UpdateTimestamp
     private LocalDate endDate;
 
-    public void addProjectToList(Project project){
-        projects.add(project);
-    }
+//    public void addProjectToList(Project project){
+//        projects.add(project);
+//    }
 //    public Project(String name, Status status, double budget, Address address, LocalDate deadline) {
 //        this.name = name;
 //        this.status = status;

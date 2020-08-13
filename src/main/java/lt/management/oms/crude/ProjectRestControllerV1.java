@@ -4,9 +4,12 @@ import lt.management.oms.dto.ProjectDto;
 import lt.management.oms.model.Project;
 import lt.management.oms.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/projects")
@@ -18,15 +21,16 @@ public class ProjectRestControllerV1 {
 
 
     @Autowired
-    private  ProjectDto projectDto;
+    private ProjectDto projectDto;
 
 
     @GetMapping
-    public List<Project> getAllProjects() {
+    public List<Project> getAllProjects(Pageable page) {
 
-        List<Project> pList = projectService.getAll();
+        Page<Project> pList = projectService.getAll(page);
 
         return projectDto.entityToDto(pList);
+        //   return projectService.getAll(page);
     }
 
     @GetMapping("/{projectId}")
