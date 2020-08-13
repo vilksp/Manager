@@ -1,55 +1,41 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Login from './components/Login'
-import Test from './components/Test'
-import Dashboard from './components/dashboard/Dashboard';
+import Login from "./components/Login";
+import Test from "./components/Test";
+import ImageDropZone from "./components/ImageDropZone";
+import Dashboard from "./components/dashboard/Dashboard";
+import GetFiles from "./components/GetFiles";
+import DeleteImage from "./components/DeleteImage";
 export default function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/test">Test</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/test">
-            <Test />
-          </Route>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
+        <Dashboard>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route path="/test">
+              <Test />
+            </Route>
+            <Route path="/image">
+              <ImageDropZone />
+              <GetFiles />
+            </Route>
+            <Route path="/delete/:id" exact component={DeleteImage}></Route>
+            <Route path="/">
+              <Login />
+            </Route>
+          </Switch>
+        </Dashboard>
       </div>
     </Router>
   );
 }
-
-
 
 function About() {
   return <h2>About</h2>;
