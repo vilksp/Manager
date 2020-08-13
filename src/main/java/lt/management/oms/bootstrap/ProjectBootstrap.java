@@ -38,13 +38,13 @@ public class ProjectBootstrap implements ApplicationListener {
         Task taskOne = new Task();
         taskOne.setId(1L);
         taskOne.setTaskName("Test 1");
-      //  taskOne.setProject(fakeProjectOne);
+        taskOne.setProject(fakeProjectOne);
         taskList.add(taskOne);
 
         Task taskTwo = new Task();
         taskTwo.setId(2L);
         taskTwo.setTaskName("Test 2");
-      //  taskTwo.setProject(fakeProjectOne);
+        taskTwo.setProject(fakeProjectOne);
         taskList.add(taskTwo);
 
 
