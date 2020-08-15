@@ -84,10 +84,16 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.13</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+         <!--- Script for automatically building and running project
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -143,10 +149,8 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
-
                     <execution>
                         <id>Copy react to target folder</id>
-
                         <phase>process-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -163,6 +167,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
         </plugins>
     </build>
