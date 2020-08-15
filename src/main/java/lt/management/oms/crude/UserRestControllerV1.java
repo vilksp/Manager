@@ -1,7 +1,7 @@
 package lt.management.oms.crude;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +22,7 @@ import lt.management.oms.service.UserService;
 @RestController
 @RequestMapping("/api/v1/")
 public class UserRestControllerV1 {
+
 
 	@Autowired
 	private UserService userService;
@@ -46,4 +47,6 @@ public class UserRestControllerV1 {
 	public User updateUser(@PathVariable String username, @RequestBody UserDto user) {
 		return userService.update(username, user.toUser());
 	}
+
+
 }

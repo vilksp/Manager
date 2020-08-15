@@ -1,120 +1,179 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import EditIcon from "@material-ui/icons/Edit";
-import Divider from "@material-ui/core/Divider";
-import CardHeader from "@material-ui/core/CardHeader";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import { blueGrey } from "@material-ui/core/colors";
+import SaveIcon from "@material-ui/icons/Save";
+import CancelIcon from "@material-ui/icons/Cancel";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 645,
-    marginLeft: "30px",
+    minWidth: 275,
+    margin: "20px",
   },
-  avatar: {
-    backgroundColor: blueGrey[500],
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+  input: {
+    margin: theme.spacing(1),
+    width: "70%",
+    marginBottom: "20px",
   },
-  cardheader: {
-    background: "#ebe9e7",
+  title: {
+    margin: theme.spacing(1),
+    fontSize: 26,
   },
-  TypographyHeaders: {
-    marginTop: "20px",
+  pos: {
+    marginBottom: 12,
+  },
+  cancel: {
+    color: "#fff",
+    "&:hover": {
+      color: "#fff",
+      textDecoration: "none",
+    },
+  },
+  errorMessage: {
+    color: "#ff0000",
+    marginLeft: 10,
   },
 }));
 
-const UserProfile = () => {
+// I am using react-hook-form
+
+const UpdateUser = (props) => {
   const { username } = useParams();
-  const [data, setData] = useState([]);
+  const { register, handleSubmit, errors, setValue } = useForm();
   const [token] = useState(sessionStorage.getItem("token"));
   const classes = useStyles();
 
+  const BASE_URL = "http://localhost:8080/api/v1";
+
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/username`, {
+      .get(BASE_URL + `/users/${username}`, {
         headers: { Authorization: token },
       })
       .then((result) => {
-        setData(result.data);
-        console.log(result.data);
+        setValue("firstName", result.data.firstName);
+        setValue("lastName", result.data.lastName);
+        setValue("email", result.data.email);
+        setValue("description", result.data.description);
       });
   }, [username]);
 
+  const onSubmit = (data) => {
+    axios
+      .put(
+        BASE_URL + `/users/${username}`,
+
+        data,
+        {
+          headers: { Authorization: token },
+        }
+      )
+      .then((result) => {
+        props.history.push("/profile");
+      });
+  };
+
   return (
-    <div>
+    <>
       <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="photo" className={classes.avatar}>
-              JD
-            </Avatar>
-          }
-          action={
-            <IconButton
-              aria-label="edit"
-              component={Link}
-              to={`/update/${data.username}`}
-              style={{ color: "#555" }}
-              title="Edit"
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
             >
-              <EditIcon />
-            </IconButton>
-          }
-          className={classes.cardheader}
-        />
-        <CardContent>
-          <Typography variant="h3" gutterBottom>
-            Hello {data.firstname} {data.lastname} !
-          </Typography>
-          <Divider />
-          <Typography variant="h6" className={classes.TypographyHeaders}>
-            First name:
-          </Typography>
-          <Typography>{data.firstname}</Typography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            className={classes.TypographyHeaders}
-          >
-            Last name:
-          </Typography>
-          <Typography gutterBottom>{data.lastname}</Typography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            className={classes.TypographyHeaders}
-          >
-            Username:
-          </Typography>
-          <Typography gutterBottom>{data.username}</Typography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            className={classes.TypographyHeaders}
-          >
-            Email:
-          </Typography>
-          <Typography gutterBottom>{data.email}</Typography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            className={classes.TypographyHeaders}
-          >
-            About me:
-          </Typography>
-          <Typography paragraph>{data.description}</Typography>
-        </CardContent>
+              Update your profile
+            </Typography>
+
+            <div>
+              <TextField
+                className={classes.input}
+                id="standard-basic"
+                variant="outlined"
+                label="First Name"
+                type="text"
+                name="firstName"
+                inputRef={register({ required: false })}
+              />
+            </div>
+            <div>
+              <TextField
+                className={classes.input}
+                id="standard-basic"
+                label="Last Name"
+                variant="outlined"
+                type="text"
+                name="lastName"
+                inputRef={register({ required: false, maxLength: 20 })}
+              />
+              {/* Example how to put an error message with react-hook-form*/}
+              <div className={classes.errorMessage}>
+                {errors.lastName && "Last name is too long"}
+              </div>
+            </div>
+            <div>
+              <TextField
+                className={classes.input}
+                id="standard-basic"
+                label="Email"
+                type="email"
+                name="email"
+                variant="outlined"
+                inputRef={register({ required: false })}
+              />
+            </div>
+            <div>
+              <TextField
+                className={classes.input}
+                id="standard-multiline-static"
+                label="Description"
+                multiline
+                rows={10}
+                type="text"
+                name="description"
+                variant="outlined"
+                inputRef={register({ required: false })}
+              />
+            </div>
+          </CardContent>
+          <CardActions>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+              startIcon={<CancelIcon />}
+              // component={Link}
+              // to="/profile"
+            >
+              <Link to="/profile" className={classes.cancel}>
+                Cancel
+              </Link>
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+              type="submit"
+            >
+              Submit
+            </Button>
+          </CardActions>
+        </form>
       </Card>
-    </div>
+    </>
   );
 };
 
-export default UserProfile;
+export default UpdateUser;

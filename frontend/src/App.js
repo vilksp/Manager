@@ -8,6 +8,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import GetFiles from "./components/GetFiles";
 import DeleteImage from "./components/DeleteImage";
 import UpdateUser from "./components/UpdateUser";
+
 import UserProfile from "./components/UserProfile";
 export default function App() {
   return (
