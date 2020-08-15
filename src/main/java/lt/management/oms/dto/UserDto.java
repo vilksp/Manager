@@ -22,6 +22,7 @@ public class UserDto {
     private String lastName;
     private String email;
     private String password;
+    private String description;
 
     public User toUser(){
         User user = new User();
@@ -32,6 +33,7 @@ public class UserDto {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setPassword(password);
+        user.setDescription(description);
         return user;
     }
 
@@ -42,7 +44,7 @@ public class UserDto {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
-
+        userDto.setDescription(user.getDescription());
         return userDto;
     }
 }

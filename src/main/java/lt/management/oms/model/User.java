@@ -35,6 +35,9 @@ public class User extends BaseEntity {
 
     @Column(name = "password")
     private String password;
+    
+    @Column(name = "description")
+    private String description;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
