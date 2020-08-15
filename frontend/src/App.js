@@ -7,6 +7,7 @@ import ImageDropZone from "./components/ImageDropZone";
 import Dashboard from "./components/dashboard/Dashboard";
 import GetFiles from "./components/GetFiles";
 import DeleteImage from "./components/DeleteImage";
+import UpdateUser from "./components/UpdateUser";
 import UserProfile from "./components/UserProfile";
 export default function App() {
   return (
@@ -28,6 +29,11 @@ export default function App() {
               <GetFiles />
             </Route>
             <Route path="/delete/:id" exact component={DeleteImage}></Route>
+            <Route
+              path="/update/:username"
+              exact
+              component={UpdateUser}
+            ></Route>
             <Route path="/">
               <Login />
             </Route>
