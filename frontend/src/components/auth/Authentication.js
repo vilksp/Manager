@@ -35,6 +35,7 @@ class Authorization {
     sessionStorage.removeItem(TOKEN_NAME);
     sessionStorage.removeItem(USER_ROLE);
     window.location.reload();
+    window.location.href ="/login";
   }
 
   isAdminLoggedIn() {

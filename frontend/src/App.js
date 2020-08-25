@@ -10,10 +10,22 @@ import DeleteImage from "./components/DeleteImage";
 import UpdateUser from "./components/UpdateUser";
 
 import UserProfile from "./components/UserProfile";
+import Authentication from "./components/auth/Authentication";
+
 export default function App() {
+
+  const isUserLoggedIn = Authentication.isUserLoggedIn();
+
   return (
     <Router>
-      <div>
+      {!isUserLoggedIn && 
+      <div >
+        <Route path={["/", "/login"]} >
+          <Login />
+        </Route>
+        </div>}
+        {isUserLoggedIn && 
+        <div>
         <Dashboard>
           <Switch>
             <Route path="/about">
@@ -35,12 +47,14 @@ export default function App() {
               exact
               component={UpdateUser}
             ></Route>
-            <Route path="/">
-              <Login />
+            <Route path="/home">
+              <Home />
             </Route>
           </Switch>
         </Dashboard>
       </div>
+}
+      
     </Router>
   );
 }
@@ -49,6 +63,6 @@ function About() {
   return <h2>About</h2>;
 }
 
-function Users() {
-  return <h2>Users</h2>;
+function Home() {
+  return <h2>Welcome to home page</h2>;
 }
