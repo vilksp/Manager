@@ -1,10 +1,24 @@
 import React, { useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+
+
 import Copyright from "../components/Copyright";
 import axios from "axios";
-import { Button, Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Auth from "../components/auth/Authentication";
+import { useHistory } from 'react-router-dom';
 
 const BASE_URL = "http://localhost:8080";
 
@@ -13,6 +27,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [roles, setRoles] = useState("");
+  const history = useHistory();
 
   const loginClicked = (event) => {
     console.log(`password ${password} mail ${mail}`)
@@ -28,6 +43,8 @@ export default function SignIn() {
         Auth.registerJwtTT(res.data.token);
         Auth.registerUserRole(res.data.roles);
         // push to main page
+        history.push('/profile');
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -37,36 +54,74 @@ export default function SignIn() {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
-      <Form>
-        <Form.Group >
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username"
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} onSubmit={loginClicked}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            type="text"
+            autoFocus
             onChange={(event) => {
               setMail(event.target.value);
             }}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-    </Form.Text>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password"
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
             onChange={(event) => {
               setPassword(event.target.value);
             }}
           />
-        </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button as="input" type="submit" value="Submit" 
-         onClick={(event) => loginClicked(event)} />
-      </Form>
-
-
-
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </Container>
   );
 }
