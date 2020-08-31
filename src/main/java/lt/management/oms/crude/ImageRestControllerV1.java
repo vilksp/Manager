@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.model.Image;
 import lt.management.oms.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +45,9 @@ public class ImageRestControllerV1 {
 	}
 
 	@GetMapping("/downloadFile/{fileId}")
-	public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
+	public Image downloadFile(@PathVariable Long fileId) {
 		Image image = imageService.getFileById(fileId).get();
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getImageType()))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getImageName() + "\"")
-				.body(new ByteArrayResource(image.getData()));
+		return image;
 	}
 	
 	@DeleteMapping("files/{fileId}")

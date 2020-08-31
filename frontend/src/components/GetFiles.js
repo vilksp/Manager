@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8080/api/v1";
+const UPLOAD_DIR = "http://localhost:8080/"
 
 const GetFiles = () => {
   // saving value to state
@@ -24,72 +25,18 @@ const GetFiles = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios({
-  //     url: `http://localhost:8000/api/v1/downloadFile/${id}`,
-  //     method: "GET",
-  //     responseType: "blob",
-  //     headers: {
-  //       Authorization: token,
-  //     },
-  //   }).then((response) => {
-  //     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-  //     var fileLink = document.createElement("a");
-
-  //     fileLink.href = fileURL;
-  //     fileLink.setAttribute("download", "file.jpg");
-  //     document.body.appendChild(fileLink);
-
-  //     fileLink.click();
-  //     setImagess(response.data);
-  //   });
-  // }, [id]);
-
-  // const download = (e) => {
-  //   axios
-  //     .get(BASE_URL + "/downloadImage/" + id, {
-  //       responseType: "arraybuffer",
-  //       headers: {
-  //         Authorization: token,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const url = window.URL.createObjectURL(new Blob([response.data]));
-  //       const link = document.createElement("a");
-  //       link.href = url;
-  //       link.setAttribute("download", "file.jpg"); //or any other extension
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       console.log(`Token here:  ${token}`);
-  //       console.log(`result here:  ${response}`);
-  //       console.log(response);
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
 
 
-  const imageDisplay = (url) => {
-    console.log(url);
-    axios({
-      url: url,
-      method: 'GET',
-      responseType: 'arraybuffer',
-      headers: { Authorization: token}
-    })
-      .then((response) => {
-        let blob = new Blob(
-          [response.data], 
-          { type: response.headers['content-type'] }
-        )
-        let image = URL.createObjectURL(blob)
-        return image
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  const parseImageName = (imageLocation) => {
+    // imageLocation  tmp/tomcat-docbase.**.8080/uploads/pic.png
+    console.log(imageLocation)
+    let uploadPath = imageLocation.split("/").splice(3).join("/") ////uploads/pic.png
+    return UPLOAD_DIR + uploadPath
+  }
 
 
+  //TODO: pakeisti
   const download = (e, url) => {
     console.log(url);
     axios({
@@ -128,10 +75,10 @@ const GetFiles = () => {
             <td className="text-center">{image.id}</td>
 
             <td className="text-center">
-              <a href={BASE_URL + `/downloadFile/` + image.id}>
+              <a href={parseImageName(image.imagePath)}>
                 <img
                   style={{ width: "100px" }}
-                  src={imageDisplay(BASE_URL + `/downloadFile/` + image.id)}
+                  src={parseImageName(image.imagePath)}
                 />
               </a>
             </td>

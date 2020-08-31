@@ -1,21 +1,32 @@
 package lt.management.oms.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.model.Image;
 import lt.management.oms.repository.ImageRepository;
 import lt.management.oms.service.ImageService;
 import org.apache.http.entity.ContentType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 public class ImageServiceImpl implements ImageService {
 
 
     private final ImageRepository imageRepository;
+
+    @Autowired
+    private HttpServletRequest request;
 
     public ImageServiceImpl(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
@@ -25,9 +36,27 @@ public class ImageServiceImpl implements ImageService {
     public void saveFile(MultipartFile file) throws Exception {
         isEmpty(file);
         isImageType(file);
-        String imageName = file.getOriginalFilename();
         try {
-            Image image = new Image(imageName, file.getContentType(), file.getBytes());
+
+
+
+            String uploadsDir = "/uploads/";
+            String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
+
+            if(! new File(realPathToUploads).exists())
+            {
+                new File(realPathToUploads).mkdir();
+            }
+
+            log.info("image folder = {}", realPathToUploads);
+
+            byte[] imageData = file.getBytes();
+            String imageName = file.getOriginalFilename();
+            Path path = Paths.get(realPathToUploads + imageName);
+            log.info("image path = {}", path);
+            Files.write(path, imageData);
+
+            Image image = new Image(imageName, file.getContentType(), path.toString());
             imageRepository.save(image);
         } catch (Exception e) {
             e.printStackTrace();
