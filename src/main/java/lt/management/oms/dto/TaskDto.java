@@ -14,20 +14,20 @@ import java.time.LocalDate;
 @Getter
 public class TaskDto {
 
-	private String taskName;
-	private String taskDescription;
-	private Status status;
-	private Priority priority;
+    private String taskName;
+    private String taskDescription;
+    private Status status;
+    private Priority priority;
 
-	public Task build() {
-		Task task = new Task();
-		task.setTaskName(taskName);
-		task.setTaskDescription(taskDescription);
-		task.setStatus(status);
-		task.setPriority(priority);
-		task.setUpdateDate(LocalDate.now());
-		task.setCreateDate(LocalDate.now());
-		return task;
+    public Task build() {
+        Task task = new Task();
+        task.setTaskName(taskName);
+        task.setTaskDescription(taskDescription);
+        task.setStatus(status);
+        task.setPriority(priority);
+        task.setUpdateDate(LocalDate.now());
+        task.setCreateDate(LocalDate.now());
+        return task;
 
-	}
+    }
 }

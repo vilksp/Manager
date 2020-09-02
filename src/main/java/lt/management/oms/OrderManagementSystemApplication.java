@@ -22,6 +22,9 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class OrderManagementSystemApplication implements CommandLineRunner {
 
+    UserService service;
+    ProjectService projectService;
+
     public static void main(String[] args) {
         SpringApplication.run(OrderManagementSystemApplication.class, args);
     }
@@ -35,9 +38,6 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
             }
         };
     }
-
-    UserService service;
-    ProjectService projectService;
 
     @Autowired
     public void setService(@Lazy UserService service) {
@@ -81,7 +81,7 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
         user2.setEmail("some@email.com");
         user2.setPassword("user");
         service.register(user2, "ROLE_USER");
-        
+
         User user3 = new User();
         user3.setCreateDate(LocalDate.now());
         user3.setUsername("jonny");
@@ -91,7 +91,7 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
         user3.setPassword("jonny");
         user3.setDescription("I am jonny and i am en engineer");
 
-      service.register(user3, "ROLE_USER");
+        service.register(user3, "ROLE_USER");
 
         Address address = new Address();
         address.setCity("Vilnius");
@@ -117,9 +117,9 @@ public class OrderManagementSystemApplication implements CommandLineRunner {
         project.setStatus(Status.ACTIVE);
 
         address.setProject(project);
-     //   task.setProject(project);
+        //   task.setProject(project);
         project.setAddress(address);
-      //  project.addProjectToList(task);
+        //  project.addProjectToList(task);
 
         projectService.createProject(project);
 

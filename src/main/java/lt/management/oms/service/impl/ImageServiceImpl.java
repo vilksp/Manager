@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.nio.file.Files;
@@ -18,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 @Slf4j
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -39,12 +39,10 @@ public class ImageServiceImpl implements ImageService {
         try {
 
 
-
             String uploadsDir = "/uploads/";
-            String realPathToUploads =  request.getServletContext().getRealPath(uploadsDir);
+            String realPathToUploads = request.getServletContext().getRealPath(uploadsDir);
 
-            if(! new File(realPathToUploads).exists())
-            {
+            if (!new File(realPathToUploads).exists()) {
                 new File(realPathToUploads).mkdir();
             }
 
@@ -88,8 +86,8 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-	@Override
-	public void delete(Long imageId) {
-		imageRepository.deleteById(imageId);
-	}
+    @Override
+    public void delete(Long imageId) {
+        imageRepository.deleteById(imageId);
+    }
 }

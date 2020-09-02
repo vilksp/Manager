@@ -13,18 +13,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(metadata())
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("lt.management.oms"))
-				.build();
-	}
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(metadata())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("lt.management.oms"))
+                .build();
+    }
 
-	public ApiInfo metadata() {
-		return new ApiInfoBuilder().title("Manager").description("CRUD for manager")
-				.version("1.0").build();
-	}
+    public ApiInfo metadata() {
+        return new ApiInfoBuilder().title("Manager").description("CRUD for manager")
+                .version("1.0").build();
+    }
 
 }

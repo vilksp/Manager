@@ -2,8 +2,6 @@ package lt.management.oms.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.enums.Status;
-import lt.management.oms.exceptions.ProjectNotFoundException;
-import lt.management.oms.model.Project;
 import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
 import lt.management.oms.repository.RoleRepository;
@@ -85,25 +83,25 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        log.info("IN findById - user: {} found by id: {}", result,id);
+        log.info("IN findById - user: {} found by id: {}", result, id);
         return result;
     }
 
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted",id);
+        log.info("IN delete - user with id: {} successfully deleted", id);
     }
 
-	@Override
-	public User update(String username, User user) {
+    @Override
+    public User update(String username, User user) {
         User oldUser = userRepository.findByUsername(username);
         oldUser.setFirstName(user.getFirstName());
         oldUser.setLastName(user.getLastName());
         oldUser.setEmail(user.getEmail());
         oldUser.setDescription(user.getDescription());
-        log.info("IN update - user with username: {} successfully updated",username);
+        log.info("IN update - user with username: {} successfully updated", username);
         return userRepository.save(oldUser);
 
-	}
+    }
 }

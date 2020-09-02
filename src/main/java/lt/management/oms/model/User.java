@@ -11,7 +11,6 @@ import java.util.List;
  * Simple domain object that represents application user.
  *
  * @author Vilius & Edgaras
- *
  * @version 1.0
  */
 
@@ -35,17 +34,17 @@ public class User extends BaseEntity {
 
     @Column(name = "password")
     private String password;
-    
+
     @Column(name = "description")
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private List<Role> roles;
 
-    public String getRoleName(){
+    public String getRoleName() {
         return roles.stream().findFirst().get().getName().toLowerCase().substring(5);
     }
 }

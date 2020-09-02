@@ -18,41 +18,41 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ImageRestControllerV1 {
 
-	@Autowired
-	private ImageService imageService;
+    @Autowired
+    private ImageService imageService;
 
-	// Returns all the files
-	@GetMapping("/files")
-	public List<Image> getListOfFiles() {
-		return imageService.getAll();
-	}
+    // Returns all the files
+    @GetMapping("/files")
+    public List<Image> getListOfFiles() {
+        return imageService.getAll();
+    }
 
-	// Uploads multiple files
-	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity uploadFile(@RequestParam("files") MultipartFile[] files){
-		for (int i = 0; i < files.length; i++) {
-			log.info(String.format("File name '%s' uploaded successfully.", files[i].getOriginalFilename()));
-		}
+    // Uploads multiple files
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity uploadFile(@RequestParam("files") MultipartFile[] files) {
+        for (int i = 0; i < files.length; i++) {
+            log.info(String.format("File name '%s' uploaded successfully.", files[i].getOriginalFilename()));
+        }
 
-		Arrays.asList(files).stream().forEach(file -> {
-			try {
-				imageService.saveFile(file);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		return ResponseEntity.ok().build();
-	}
+        Arrays.asList(files).stream().forEach(file -> {
+            try {
+                imageService.saveFile(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return ResponseEntity.ok().build();
+    }
 
-	@GetMapping("/downloadFile/{fileId}")
-	public Image downloadFile(@PathVariable Long fileId) {
-		Image image = imageService.getFileById(fileId).get();
-		return image;
-	}
-	
-	@DeleteMapping("files/{fileId}")
-	public void deleteImage(@PathVariable Long fileId) {
-		imageService.delete(fileId);
-		log.info(String.format("File by id '%s' deleted successfully.", fileId));
-	}
+    @GetMapping("/downloadFile/{fileId}")
+    public Image downloadFile(@PathVariable Long fileId) {
+        Image image = imageService.getFileById(fileId).get();
+        return image;
+    }
+
+    @DeleteMapping("files/{fileId}")
+    public void deleteImage(@PathVariable Long fileId) {
+        imageService.delete(fileId);
+        log.info(String.format("File by id '%s' deleted successfully.", fileId));
+    }
 }

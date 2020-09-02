@@ -24,7 +24,18 @@ public class UserDto {
     private String password;
     private String description;
 
-    public User toUser(){
+    public static UserDto fromUser(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        userDto.setDescription(user.getDescription());
+        return userDto;
+    }
+
+    public User toUser() {
         User user = new User();
         user.setId(id);
         user.setCreateDate(LocalDate.now());
@@ -35,16 +46,5 @@ public class UserDto {
         user.setPassword(password);
         user.setDescription(description);
         return user;
-    }
-
-    public static UserDto fromUser(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setUsername(user.getUsername());
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setEmail(user.getEmail());
-        userDto.setDescription(user.getDescription());
-        return userDto;
     }
 }

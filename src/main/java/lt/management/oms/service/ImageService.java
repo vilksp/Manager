@@ -13,7 +13,7 @@ public interface ImageService {
     Optional<Image> getFileById(Long imageId);
 
     List<Image> getAll();
-    
+
     void delete(Long imageId);
 
 }

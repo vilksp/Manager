@@ -112,9 +112,9 @@ public class JwtUser implements UserDetails {
         return lastPasswordResetDate;
     }
 
-	public String getDescription() {
-		return description;
-	}
-    
-    
+    public String getDescription() {
+        return description;
+    }
+
+
 }
