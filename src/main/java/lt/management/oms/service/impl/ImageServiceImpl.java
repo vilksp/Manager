@@ -11,9 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +87,21 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void delete(Long imageId) {
+
+        Optional<Image> imageExisting = imageRepository.findById(imageId);
+        String pathToFile = imageExisting.get().getImagePath();
+        Path path = Paths.get(pathToFile);
+
+        try {
+            Files.delete(path);
+        } catch (NoSuchFileException x) {
+            log.error("{}: no such" + " file or directory%n", path);
+        } catch (DirectoryNotEmptyException x) {
+            log.error("{} not empty%n", path);
+        } catch (IOException x) {
+            log.error(String.valueOf(x));
+        }
         imageRepository.deleteById(imageId);
+        log.info("Image deleted from: {}", path);
     }
 }
