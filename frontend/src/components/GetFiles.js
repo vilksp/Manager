@@ -35,30 +35,6 @@ const GetFiles = () => {
     return UPLOAD_DIR + uploadPath
   }
 
-
-  //TODO: pakeisti
-  const download = (e, url) => {
-    console.log(url);
-    axios({
-      url: url,
-      method: 'GET',
-      responseType: 'blob', // important
-      headers: { Authorization: token}
-    })
-      .then((response) => {
-        console.log("Geting picture data")
-        const url = window.URL.createObjectURL(new Blob([response.data], {type: response.data.type}  ))
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', response.data.type);
-        document.body.appendChild(link);
-        link.click();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <table className="table ">
       <thead>
@@ -87,8 +63,7 @@ const GetFiles = () => {
                 <span>{image.imageName}</span>
               ) : (
                 <a
-                href="#"
-                  onClick={(e) => download(e, `${BASE_URL}/downloadFile/${image.id}`)}
+                href={parseImageName(image.imagePath)} download
                 >
                   {image.imageName}
                 </a>
