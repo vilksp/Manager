@@ -22,6 +22,8 @@ import { mainListItems, secondaryListItems } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
+import Authentication from "../auth/Authentication";
+import { Button } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -121,6 +123,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard({ children }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const isUserLoggedIn = Authentication.isUserLoggedIn();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -163,6 +167,17 @@ export default function Dashboard({ children }) {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          {isUserLoggedIn && (
+            <div>
+              <Button
+                component={Link}
+                to="/login"
+                onClick={Authentication.logout}
+              >
+                Logout
+              </Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer

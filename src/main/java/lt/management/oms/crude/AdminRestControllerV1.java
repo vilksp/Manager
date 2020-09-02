@@ -12,7 +12,7 @@ public class AdminRestControllerV1 {
 
 
     @GetMapping("test")
-    public String testAdmin(){
+    public String testAdmin() {
         return "Admim OK";
     }
 }

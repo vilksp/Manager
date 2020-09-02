@@ -1,5 +1,6 @@
 package lt.management.oms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-@Deprecated
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -25,6 +26,7 @@ public class Task extends BaseEntity {
     private Priority priority;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Project project;
 
 }

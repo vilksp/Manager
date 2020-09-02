@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Spring Security wrapper for class {@link User}.
@@ -27,6 +26,7 @@ public class JwtUser implements UserDetails {
     private final boolean enabled;
     private final LocalDate lastPasswordResetDate;
     private final Collection<? extends GrantedAuthority> authorities;
+    private final String description;
 
     public JwtUser(
             Long id,
@@ -36,7 +36,8 @@ public class JwtUser implements UserDetails {
             String email,
             String password, Collection<? extends GrantedAuthority> authorities,
             boolean enabled,
-            LocalDate lastPasswordResetDate
+            LocalDate lastPasswordResetDate,
+            String description
     ) {
         this.id = id;
         this.username = username;
@@ -47,6 +48,7 @@ public class JwtUser implements UserDetails {
         this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
+        this.description = description;
     }
 
     @JsonIgnore
@@ -109,4 +111,10 @@ public class JwtUser implements UserDetails {
     public LocalDate getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+
 }

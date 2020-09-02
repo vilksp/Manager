@@ -15,9 +15,16 @@ import java.util.List;
 public interface UserService {
 
     User register(User user, String role);
+
     Role createRole(Role role);
+
     List<User> getAll();
+
     User findByUsername(String username);
+
     User findById(Long id);
+
     void delete(Long id);
+
+    User update(String username, User user);
 }

@@ -1,18 +1,19 @@
 package lt.management.oms.exceptions;
 
-public class ProjectNotFoundException extends RuntimeException {
+public class TaskNotFoundException extends RuntimeException {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    public ProjectNotFoundException() {
+    public TaskNotFoundException() {
+
     }
 
     @Override
     public String toString() {
-        return "Project is not found";
+        return "Task is not found";
     }
 
 }

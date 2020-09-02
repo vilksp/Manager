@@ -1,4 +1,4 @@
-package lt.management.oms.service;
+package lt.management.oms.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.enums.Status;
@@ -6,7 +6,7 @@ import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
 import lt.management.oms.repository.RoleRepository;
 import lt.management.oms.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lt.management.oms.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
+
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -83,13 +83,25 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        log.info("IN findById - user: {} found by id: {}", result,id);
+        log.info("IN findById - user: {} found by id: {}", result, id);
         return result;
     }
 
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
-        log.info("IN delete - user with id: {} successfully deleted",id);
+        log.info("IN delete - user with id: {} successfully deleted", id);
+    }
+
+    @Override
+    public User update(String username, User user) {
+        User oldUser = userRepository.findByUsername(username);
+        oldUser.setFirstName(user.getFirstName());
+        oldUser.setLastName(user.getLastName());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setDescription(user.getDescription());
+        log.info("IN update - user with username: {} successfully updated", username);
+        return userRepository.save(oldUser);
+
     }
 }
