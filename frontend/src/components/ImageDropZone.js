@@ -17,9 +17,7 @@ const ImageDropZone = () => {
   const [validFiles, setValidFiles] = useState([]);
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [data, setData] = useState([]);
   const [token] = useState(sessionStorage.getItem("token"));
-  const [role] = useState(sessionStorage.getItem("role"));
 
   useEffect(() => {
     let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -150,26 +148,31 @@ const ImageDropZone = () => {
       const formData = new FormData();
       formData.append("files", validFiles[i]);
       formData.append("key", "");
-      
-//axios here
-      axios
-        .post(BASE_URL+"/upload", formData,{ headers: { Authorization: token } }, {
-          onUploadProgress: (progressEvent) => {
-            const uploadPercentage = Math.floor(
-              (progressEvent.loaded / progressEvent.total) * 100
-            );
-            progressRef.current.innerHTML = `${uploadPercentage}%`;
-            progressRef.current.style.width = `${uploadPercentage}%`;
 
-            if (uploadPercentage === 100) {
-              uploadRef.current.innerHTML = "File(s) Uploaded";
-              validFiles.length = 0;
-              setValidFiles([...validFiles]);
-              setSelectedFiles([...validFiles]);
-              setUnsupportedFiles([...validFiles]);
-            }
-          },
-        })
+      //axios here
+      axios
+        .post(
+          BASE_URL + "/upload",
+          formData,
+          { headers: { Authorization: token } },
+          {
+            onUploadProgress: (progressEvent) => {
+              const uploadPercentage = Math.floor(
+                (progressEvent.loaded / progressEvent.total) * 100
+              );
+              progressRef.current.innerHTML = `${uploadPercentage}%`;
+              progressRef.current.style.width = `${uploadPercentage}%`;
+
+              if (uploadPercentage === 100) {
+                uploadRef.current.innerHTML = "File(s) Uploaded";
+                validFiles.length = 0;
+                setValidFiles([...validFiles]);
+                setSelectedFiles([...validFiles]);
+                setUnsupportedFiles([...validFiles]);
+              }
+            },
+          }
+        )
         .catch(() => {
           uploadRef.current.innerHTML = `<span class="error">Error Uploading File(s)</span>`;
           progressRef.current.style.backgroundColor = "red";
