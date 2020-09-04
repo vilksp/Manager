@@ -15,8 +15,6 @@ import Typography from '@material-ui/core/Typography';
 
 
 import Copyright from "../components/Copyright";
-import axios from "axios";
-import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Auth from "../components/auth/Authentication";
 import { useHistory } from 'react-router-dom';
 
@@ -48,6 +46,7 @@ export default function SignIn() {
       })
       .catch((error) => {
         console.log(error);
+        alert("Username or password are incorect!")
       });
   };
 
