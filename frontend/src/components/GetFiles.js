@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8080/api/v1";
-const UPLOAD_DIR = "http://localhost:8080/"
+const UPLOAD_DIR = "http://localhost:8080/";
 
 const GetFiles = () => {
-  // saving value to state
-  const { id } = useParams();
   const [images, setImages] = useState([]);
   const [token] = useState(sessionStorage.getItem("token"));
-  const [role] = useState(sessionStorage.getItem("role"));
 
   useEffect(() => {
     axios
@@ -25,15 +21,12 @@ const GetFiles = () => {
       });
   }, []);
 
-
-
-
   const parseImageName = (imageLocation) => {
     // imageLocation  tmp/tomcat-docbase.**.8080/uploads/pic.png
-    console.log(imageLocation)
-    let uploadPath = imageLocation.split("/").splice(3).join("/") ////uploads/pic.png
-    return UPLOAD_DIR + uploadPath
-  }
+    console.log(imageLocation);
+    let uploadPath = imageLocation.split("/").splice(3).join("/"); ////uploads/pic.png
+    return UPLOAD_DIR + uploadPath;
+  };
 
   return (
     <table className="table ">
@@ -62,9 +55,7 @@ const GetFiles = () => {
               {image.imageType === "application/pdf" ? (
                 <span>{image.imageName}</span>
               ) : (
-                <a
-                href={parseImageName(image.imagePath)} download
-                >
+                <a href={parseImageName(image.imagePath)} download>
                   {image.imageName}
                 </a>
               )}

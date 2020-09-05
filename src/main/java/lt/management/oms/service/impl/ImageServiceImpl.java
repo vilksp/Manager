@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import lt.management.oms.model.Image;
 import lt.management.oms.repository.ImageRepository;
 import lt.management.oms.service.ImageService;
+import lt.management.oms.utils.GeneralMethods;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -16,6 +18,7 @@ import java.nio.file.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -49,7 +52,10 @@ public class ImageServiceImpl implements ImageService {
 
             byte[] imageData = file.getBytes();
             String imageName = file.getOriginalFilename();
-            Path path = Paths.get(realPathToUploads + imageName);
+            String imageUuidName = UUID.randomUUID().toString().replace("-", "");
+            String fileNameWithOutExt = GeneralMethods.getFileExtension(imageName);
+
+            Path path = Paths.get(realPathToUploads + imageUuidName + "." + fileNameWithOutExt);
             log.info("image path = {}", path);
             Files.write(path, imageData);
 

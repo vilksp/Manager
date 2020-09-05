@@ -1,5 +1,6 @@
 package lt.management.oms.service;
 
+import lt.management.oms.dto.PasswordChange;
 import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
 
@@ -27,4 +28,6 @@ public interface UserService {
     void delete(Long id);
 
     User update(String username, User user);
+
+	User changePassword(PasswordChange form) throws Exception;
 }

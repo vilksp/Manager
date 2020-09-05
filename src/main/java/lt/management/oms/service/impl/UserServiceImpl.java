@@ -1,6 +1,7 @@
 package lt.management.oms.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import lt.management.oms.dto.PasswordChange;
 import lt.management.oms.enums.Status;
 import lt.management.oms.model.Role;
 import lt.management.oms.model.User;
@@ -104,4 +105,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(oldUser);
 
     }
+    
+    @Override
+	public User changePassword(PasswordChange form) throws Exception {
+		User user = userRepository.findByUsername(form.getUsername());
+		
+		
+		if (!passwordEncoder.matches(form.getCurrentPassword(), user.getPassword())) {
+			throw new Exception ("Current Password Incorrect.");			
+		}
+		
+		if( passwordEncoder.matches(form.getNewPassword(), user.getPassword())) {
+			throw new Exception ("New Password must be different than Current Password!");
+		}
+		
+		if( !form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception ("New Password and Confirm Password does not match!");
+		}
+		
+		String encodePassword = passwordEncoder.encode(form.getNewPassword());
+		user.setPassword(encodePassword);
+		log.info("IN update - password was succssesfuly changed");
+		return userRepository.save(user);
+	}
 }
