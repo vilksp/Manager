@@ -11,50 +11,55 @@ import UpdateUser from "./components/UpdateUser";
 
 import UserProfile from "./components/UserProfile";
 import Authentication from "./components/auth/Authentication";
+import PasswordChange from "./components/PasswordChange";
 
 export default function App() {
-
   const isUserLoggedIn = Authentication.isUserLoggedIn();
 
   return (
     <Router>
-      {!isUserLoggedIn && 
-      <div >
-        <Route path={["/", "/login"]} >
-          <Login />
-        </Route>
-        </div>}
-        {isUserLoggedIn && 
+      {!isUserLoggedIn && (
         <div>
-        <Dashboard>
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/profile">
-              <UserProfile />
-            </Route>
-            <Route path="/test">
-              <Test />
-            </Route>
-            <Route path="/image">
-              <ImageDropZone />
-              <GetFiles />
-            </Route>
-            <Route path="/delete/:id" exact component={DeleteImage}></Route>
-            <Route
-              path="/update/:username"
-              exact
-              component={UpdateUser}
-            ></Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-          </Switch>
-        </Dashboard>
-      </div>
-}
-      
+          <Route path={["/", "/login"]}>
+            <Login />
+          </Route>
+        </div>
+      )}
+      {isUserLoggedIn && (
+        <div>
+          <Dashboard>
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/profile">
+                <UserProfile />
+              </Route>
+              <Route path="/test">
+                <Test />
+              </Route>
+              <Route path="/image">
+                <ImageDropZone />
+                <GetFiles />
+              </Route>
+              <Route path="/delete/:id" exact component={DeleteImage}></Route>
+              <Route
+                path="/update/:username"
+                exact
+                component={UpdateUser}
+              ></Route>
+              <Route
+                path="/password/:username"
+                exact
+                component={PasswordChange}
+              ></Route>
+              <Route path="/home">
+                <Home />
+              </Route>
+            </Switch>
+          </Dashboard>
+        </div>
+      )}
     </Router>
   );
 }
