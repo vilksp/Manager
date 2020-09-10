@@ -12,6 +12,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { blueGrey } from "@material-ui/core/colors";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,15 +59,26 @@ const UserProfile = () => {
             </Avatar>
           }
           action={
-            <IconButton
-              aria-label="edit"
-              component={Link}
-              to={`/update/${data.username}`}
-              style={{ color: "#555" }}
-              title="Edit"
-            >
-              <EditIcon />
-            </IconButton>
+            <div>
+              <IconButton
+                aria-label="edit"
+                component={Link}
+                to={`/password/${data.username}`}
+                style={{ color: "#555" }}
+                title="Change Password"
+              >
+                <LockOpenIcon />
+              </IconButton>
+              <IconButton
+                aria-label="edit"
+                component={Link}
+                to={`/update/${data.username}`}
+                style={{ color: "#555" }}
+                title="Edit"
+              >
+                <EditIcon />
+              </IconButton>
+            </div>
           }
           className={classes.cardheader}
         />
