@@ -49,7 +49,7 @@ export default function App() {
                 component={UpdateUser}
               ></Route>
               <Route
-                path="/password/:username"
+                path="/password/:usr"
                 exact
                 component={PasswordChange}
               ></Route>

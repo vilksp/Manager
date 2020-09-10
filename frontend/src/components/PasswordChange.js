@@ -12,38 +12,41 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CancelIcon from "@material-ui/icons/Cancel";
 import TextField from "@material-ui/core/TextField";
-import Authorization from "./auth/Authentication";
-import { queries } from "@testing-library/react";
 
-function PasswordChange(props) {
+export default function PasswordChange(props) {
   const BASE_URL = "http://localhost:8080/api/v1";
-  const { username } = useParams();
+  const { usr } = useParams();
   const { register, handleSubmit, errors } = useForm();
   const [token] = useState(sessionStorage.getItem("token"));
   const classes = useStyles();
   const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     axios
-      .get(BASE_URL + `/users/${username}`, {
+      .get(BASE_URL + `/users/${usr}`, {
         headers: { Authorization: token },
       })
       .then((result) => {
         // setCurrentPassword(result.data);
-        console.log(result.data);
+        let userName = result.data.username;
+        console.log(`username ${result.data.username}`);
+        setUsername(userName);
       });
   }, []);
 
   const onSubmit = (data) => {
     //e.preventDefault();
+
+    const data_ = {...data, username };
+    console.log(data);
     axios
-      .post(BASE_URL + `/changePassword`, data, {
+      .post(BASE_URL + `/changePassword`, data_, {
         headers: { Authorization: token },
       })
       .then((result) => {
         props.history.push("/profile");
-        setNewPassword(result.data);
+        console.log(data);
         console.log(result.data);
       })
       .catch((error) => {
@@ -67,7 +70,6 @@ function PasswordChange(props) {
             <div>
               <TextField
                 className={classes.input}
-                id="standard-basic"
                 variant="outlined"
                 label="Current password"
                 type="password"
@@ -87,7 +89,6 @@ function PasswordChange(props) {
             <div>
               <TextField
                 className={classes.input}
-                id="standard-basic"
                 label="New password"
                 variant="outlined"
                 type="password"
@@ -106,7 +107,6 @@ function PasswordChange(props) {
             <div>
               <TextField
                 className={classes.input}
-                id="standard-basic"
                 label="Confirm password"
                 type="password"
                 name="confirmPassword"
@@ -189,5 +189,3 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "20px",
   },
 }));
-
-export default PasswordChange;
