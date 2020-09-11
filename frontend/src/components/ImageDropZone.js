@@ -151,28 +151,24 @@ const ImageDropZone = () => {
 
       //axios here
       axios
-        .post(
-          BASE_URL + "/upload",
-          formData,
-          { headers: { Authorization: token } },
-          {
-            onUploadProgress: (progressEvent) => {
-              const uploadPercentage = Math.floor(
-                (progressEvent.loaded / progressEvent.total) * 100
-              );
-              progressRef.current.innerHTML = `${uploadPercentage}%`;
-              progressRef.current.style.width = `${uploadPercentage}%`;
+        .post(BASE_URL + "/upload", formData, {
+          headers: { Authorization: token },
+          onUploadProgress: (progressEvent) => {
+            const uploadPercentage = Math.floor(
+              (progressEvent.loaded / progressEvent.total) * 100
+            );
+            progressRef.current.innerHTML = `${uploadPercentage}%`;
+            progressRef.current.style.width = `${uploadPercentage}%`;
 
-              if (uploadPercentage === 100) {
-                uploadRef.current.innerHTML = "File(s) Uploaded";
-                validFiles.length = 0;
-                setValidFiles([...validFiles]);
-                setSelectedFiles([...validFiles]);
-                setUnsupportedFiles([...validFiles]);
-              }
-            },
-          }
-        )
+            if (uploadPercentage === 100) {
+              uploadRef.current.innerHTML = "File(s) Uploaded";
+              validFiles.length = 0;
+              setValidFiles([...validFiles]);
+              setSelectedFiles([...validFiles]);
+              setUnsupportedFiles([...validFiles]);
+            }
+          },
+        })
         .catch(() => {
           uploadRef.current.innerHTML = `<span class="error">Error Uploading File(s)</span>`;
           progressRef.current.style.backgroundColor = "red";
@@ -182,6 +178,7 @@ const ImageDropZone = () => {
 
   const closeUploadModal = () => {
     uploadModalRef.current.style.display = "none";
+    window.location.reload();
   };
 
   return (
