@@ -12,15 +12,19 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CancelIcon from "@material-ui/icons/Cancel";
 import TextField from "@material-ui/core/TextField";
+import Alert from '@material-ui/lab/Alert';
+
 
 export default function PasswordChange(props) {
   const BASE_URL = "http://localhost:8080/api/v1";
   const { usr } = useParams();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [token] = useState(sessionStorage.getItem("token"));
   const classes = useStyles();
-  const [currentPassword, setCurrentPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [error, setError] = useState([{displayError: false, text: ""} ]);
+  const [submitMessage, setSubmitMessage] = useState([{disply: false, text: "", severity: ""} ]);
+  const MIN_PASS_LENGTH = 6
 
   useEffect(() => {
     axios
@@ -28,30 +32,42 @@ export default function PasswordChange(props) {
         headers: { Authorization: token },
       })
       .then((result) => {
-        // setCurrentPassword(result.data);
         let userName = result.data.username;
-        console.log(`username ${result.data.username}`);
         setUsername(userName);
       });
   }, []);
 
-  const onSubmit = (data) => {
-    //e.preventDefault();
+  const validate = (data) => {
+    if (data.newPassword !== data.confirmPassword) {
+      setError({displayError: true, text: "Password don't match"});
+      return false;
+    }
+    if (data.newPassword.lenght < MIN_PASS_LENGTH || data.confirmPassword.length < MIN_PASS_LENGTH) {
+      setError({displayError: true, text: `More then ${MIN_PASS_LENGTH} char long `});
+      return false;
+    }
+    setError({displayError: false});
+    return true;
+  };
 
-    const data_ = {...data, username };
-    console.log(data);
-    axios
-      .post(BASE_URL + `/changePassword`, data_, {
-        headers: { Authorization: token },
-      })
-      .then((result) => {
-        props.history.push("/profile");
-        console.log(data);
-        console.log(result.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const onSubmit = (data) => {
+    const data_ = { ...data, username };
+    let validated = validate(data);
+    if (validated) {
+      axios
+        .post(BASE_URL + `/changePassword`, data_, {
+          headers: { Authorization: token },
+        })
+        .then((result) => {
+          setSubmitMessage({disply: true, text: "Password changed", severity: "success"})
+        })
+        .catch((error) => {
+          if (error.response) {
+            setSubmitMessage({disply: true, text: `${error.response.status} ${error.response.data}`, severity: "error"})
+
+          }
+        });
+    }
   };
 
   return (
@@ -66,6 +82,7 @@ export default function PasswordChange(props) {
             >
               Change your password
             </Typography>
+             { submitMessage.disply && <Alert className={classes.errorMessage} severity={submitMessage.severity}>{submitMessage.text}</Alert>}
 
             <div>
               <TextField
@@ -74,17 +91,9 @@ export default function PasswordChange(props) {
                 label="Current password"
                 type="password"
                 name="currentPassword"
+                inputRef={register}
                 required
-                inputRef={register({
-                  // validate: (value) =>
-                  //   value === currentPassword.password || "Not match",
-                })}
               />
-              <div>
-                {errors.currentPassword && (
-                  <p>{errors.currentPassword.message}</p>
-                )}
-              </div>
             </div>
             <div>
               <TextField
@@ -93,34 +102,23 @@ export default function PasswordChange(props) {
                 variant="outlined"
                 type="password"
                 name="newPassword"
-                inputRef={register({
-                  // validate: (value) =>
-                  // value === currentPassword ||
-                  // "The new password can not be the same as current one.",
-                })}
+                inputRef={register}
+                required
+                error={error.displayError}
+                helperText={error.text}
               />
-
-              <div className={classes.errorMessage}>
-                {errors.newPassword && <p>{errors.newPassword.message}</p>}
-              </div>
-            </div>
-            <div>
-              <TextField
-                className={classes.input}
-                label="Confirm password"
-                type="password"
-                name="confirmPassword"
-                variant="outlined"
-                inputRef={register({
-                  // validate: (value) =>
-                  //   value === currentPassword.newPassword ||
-                  //   "The confirm password must be the same as new one.",
-                })}
-              />
-              <div className={classes.errorMessage}>
-                {errors.confirmPassword && (
-                  <p>{errors.confirmPassword.message}</p>
-                )}
+              <div>
+                <TextField
+                  className={classes.input}
+                  label="Confirm password"
+                  type="password"
+                  name="confirmPassword"
+                  variant="outlined"
+                  inputRef={register}
+                  required
+                  error={error.displayError}
+                  helperText={error.text}
+                />
               </div>
             </div>
           </CardContent>
@@ -131,8 +129,6 @@ export default function PasswordChange(props) {
               size="small"
               className={classes.button}
               startIcon={<CancelIcon />}
-              // component={Link}
-              // to="/profile"
             >
               <Link to="/profile" className={classes.cancel}>
                 Cancel
@@ -150,7 +146,6 @@ export default function PasswordChange(props) {
             </Button>
           </CardActions>
         </form>
-        <p>{currentPassword.password}</p>
       </Card>
     </>
   );
@@ -181,8 +176,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   errorMessage: {
-    color: "#ff0000",
     marginLeft: 10,
+    margin: 5,
   },
   button: {
     marginLeft: "18px",
