@@ -12,6 +12,7 @@ import UpdateUser from "./components/UpdateUser";
 import UserProfile from "./components/UserProfile";
 import Authentication from "./components/auth/Authentication";
 import PasswordChange from "./components/PasswordChange";
+import Project from "./components/projects/project";
 
 export default function App() {
   const isUserLoggedIn = Authentication.isUserLoggedIn();
@@ -55,6 +56,9 @@ export default function App() {
               ></Route>
               <Route path="/home">
                 <Home />
+              </Route>
+              <Route path="/projects">
+                <Project />
               </Route>
             </Switch>
           </Dashboard>
