@@ -12,8 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CancelIcon from "@material-ui/icons/Cancel";
 import TextField from "@material-ui/core/TextField";
-import Alert from '@material-ui/lab/Alert';
-
+import Alert from "@material-ui/lab/Alert";
 
 export default function PasswordChange(props) {
   const BASE_URL = "http://localhost:8080/api/v1";
@@ -22,9 +21,11 @@ export default function PasswordChange(props) {
   const [token] = useState(sessionStorage.getItem("token"));
   const classes = useStyles();
   const [username, setUsername] = useState("");
-  const [error, setError] = useState([{displayError: false, text: ""} ]);
-  const [submitMessage, setSubmitMessage] = useState([{disply: false, text: "", severity: ""} ]);
-  const MIN_PASS_LENGTH = 6
+  const [error, setError] = useState([{ displayError: false, text: "" }]);
+  const [submitMessage, setSubmitMessage] = useState([
+    { disply: false, text: "", severity: "" },
+  ]);
+  const MIN_PASS_LENGTH = 6;
 
   useEffect(() => {
     axios
@@ -39,14 +40,20 @@ export default function PasswordChange(props) {
 
   const validate = (data) => {
     if (data.newPassword !== data.confirmPassword) {
-      setError({displayError: true, text: "Password don't match"});
+      setError({ displayError: true, text: "Password don't match" });
       return false;
     }
-    if (data.newPassword.lenght < MIN_PASS_LENGTH || data.confirmPassword.length < MIN_PASS_LENGTH) {
-      setError({displayError: true, text: `More then ${MIN_PASS_LENGTH} char long `});
+    if (
+      data.newPassword.lenght < MIN_PASS_LENGTH ||
+      data.confirmPassword.length < MIN_PASS_LENGTH
+    ) {
+      setError({
+        displayError: true,
+        text: `More then ${MIN_PASS_LENGTH} char long `,
+      });
       return false;
     }
-    setError({displayError: false});
+    setError({ displayError: false });
     return true;
   };
 
@@ -59,12 +66,19 @@ export default function PasswordChange(props) {
           headers: { Authorization: token },
         })
         .then((result) => {
-          setSubmitMessage({disply: true, text: "Password changed", severity: "success"})
+          setSubmitMessage({
+            disply: true,
+            text: "Password changed",
+            severity: "success",
+          });
         })
         .catch((error) => {
           if (error.response) {
-            setSubmitMessage({disply: true, text: `${error.response.status} ${error.response.data}`, severity: "error"})
-
+            setSubmitMessage({
+              disply: true,
+              text: `${error.response.status} ${error.response.data}`,
+              severity: "error",
+            });
           }
         });
     }
@@ -82,7 +96,14 @@ export default function PasswordChange(props) {
             >
               Change your password
             </Typography>
-             { submitMessage.disply && <Alert className={classes.errorMessage} severity={submitMessage.severity}>{submitMessage.text}</Alert>}
+            {submitMessage.disply && (
+              <Alert
+                className={classes.errorMessage}
+                severity={submitMessage.severity}
+              >
+                {submitMessage.text}
+              </Alert>
+            )}
 
             <div>
               <TextField

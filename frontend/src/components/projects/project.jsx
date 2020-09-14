@@ -1,6 +1,7 @@
 import React from "react";
 import SimpleTable from "./table.component";
 import axios from "axios";
+
 class Project extends React.Component {
   constructor() {
     super();
@@ -28,7 +29,9 @@ class Project extends React.Component {
     this.api = "http://localhost:8080/api/v1/projects?page=0&size=15";
     axios
       .get(this.api, { headers: { Authorization: token } })
-      .then((response) => this.setState({ projects: response.data }))
+      .then((response) => {
+        this.setState({ projects: response.data });
+      })
       .catch((error) => console.log(error));
   };
 
@@ -41,7 +44,7 @@ class Project extends React.Component {
     return (
       <div>
         <SimpleTable projects={this.state.projects} />
-        {console.log(this.state.projects)}
+        {console.log(this.state.projects.name)}
       </div>
     );
   }

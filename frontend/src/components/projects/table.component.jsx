@@ -35,7 +35,7 @@ const SimpleTable = (props) => {
             <TableCell align="right">End Date</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody></TableBody>
+        <TableBody>{console.log(projects)}</TableBody>
       </Table>
     </TableContainer>
   );
