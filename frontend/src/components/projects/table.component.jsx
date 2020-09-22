@@ -23,7 +23,7 @@ const SimpleTable = (props) => {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
+            <TableCell align="right">Id</TableCell>
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Status</TableCell>
@@ -35,7 +35,23 @@ const SimpleTable = (props) => {
             <TableCell align="right">End Date</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{console.log(projects)}</TableBody>
+        <TableBody>
+          {console.log(projects)}
+          {projects.map((project) => (
+            <TableRow id={project.id}>
+              <TableCell>{project.id}</TableCell>
+              <TableCell>{project.name}</TableCell>
+              <TableCell>{project.description}</TableCell>
+              <TableCell>{project.status}</TableCell>
+              <TableCell>address</TableCell>
+              <TableCell>{project.duration}</TableCell>
+              <TableCell>{project.deadline}</TableCell>
+              <TableCell>{project.priority}</TableCell>
+              <TableCell>{project.createDate}</TableCell>
+              <TableCell>{project.end_date}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </TableContainer>
   );

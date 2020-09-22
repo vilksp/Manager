@@ -44,7 +44,6 @@ class Project extends React.Component {
     return (
       <div>
         <SimpleTable projects={this.state.projects} />
-        {console.log(this.state.projects.name)}
       </div>
     );
   }
